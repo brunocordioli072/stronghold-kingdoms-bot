@@ -19,7 +19,7 @@ This project is a bot designed to automate scouting routines in the game **Stron
 
 You can install the required Python libraries with:
 ```bash
-pip install opencv-python numpy
+pip install -r ./requirements.txt
 ```
 
 ## Directory Structure
