@@ -18,12 +18,8 @@ class StrongholdBot:
         # Configure paths relative to base path
         self.CONFIG_FILE = os.path.join(self.base_path, config_file)
         self.TEMPLATES_DIR = os.path.join(self.base_path, 'templates_bags')
-        self.SCOUT_BUTTON = os.path.join(
-            self.base_path, 'templates_general', 'scout_button.png')
-        self.GO_BUTTON = os.path.join(
-            self.base_path, 'templates_general', 'go_button.png')
-        self.SCOUT_EXIT_BUTTON = os.path.join(
-            self.base_path, 'templates_general', 'scout_exit_button.png')
+
+        self.template_cache = {}
 
         self.GAME_COORDS = {
             'NEXT_VILLAGE': {'x': 970, 'y': 809},
@@ -39,8 +35,31 @@ class StrongholdBot:
             self.device_id = config['device_id']
             self.number_of_villages = config['number_of_villages']
 
+        # Cache templates
+        self.cache_templates()
+
         # Connect to the device
         self.connect_device()
+
+    def cache_templates(self):
+        """Cache all template images into memory."""
+        template_paths = self.get_template_paths()
+        for path in template_paths:
+            self.template_cache[path] = cv2.imread(path)
+
+        SCOUT_BUTTON_PATH = os.path.join(
+            self.base_path, 'templates_general', 'scout_button.png')
+        GO_BUTTON_PATH = os.path.join(
+            self.base_path, 'templates_general', 'go_button.png')
+        SCOUT_EXIT_BUTTON_PATH = os.path.join(
+            self.base_path, 'templates_general', 'scout_exit_button.png')
+
+        # Add specific templates to the cache
+        self.template_cache['SCOUT_BUTTON'] = cv2.imread(
+            SCOUT_BUTTON_PATH)
+        self.template_cache['GO_BUTTON'] = cv2.imread(GO_BUTTON_PATH)
+        self.template_cache['SCOUT_EXIT_BUTTON'] = cv2.imread(
+            SCOUT_EXIT_BUTTON_PATH)
 
     def connect_device(self):
         """Connect to the specified device using ADB"""
@@ -113,7 +132,11 @@ class StrongholdBot:
 
     def find(self, template_path, threshold=0.7):
         """Find and click on a template image"""
-        template = cv2.imread(template_path)
+        template = self.template_cache.get(template_path)
+        if template is None:
+            print(f"Template not found in cache: {template_path}")
+            return False
+
         screen = self.take_screenshot()
 
         result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
@@ -122,12 +145,16 @@ class StrongholdBot:
         if max_val >= threshold:
             print(f"Found {template_path}, max_val: {max_val}")
             return True
-        print(f"Didn't found {template_path}, max_val: {max_val}")
+        print(f"Didn't find {template_path}, max_val: {max_val}")
         return False
 
     def find_and_click(self, template_path, threshold=0.7):
         """Find and click on a template image"""
-        template = cv2.imread(template_path)
+        template = self.template_cache.get(template_path)
+        if template is None:
+            print(f"Template not found in cache: {template_path}")
+            return False
+
         screen = self.take_screenshot()
 
         result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
@@ -143,7 +170,7 @@ class StrongholdBot:
             self.adb_command(
                 ['shell', 'input', 'tap', str(rand_x), str(rand_y)])
             return True
-        print(f"Didn't found {template_path}, max_val: {max_val}")
+        print(f"Didn't find {template_path}, max_val: {max_val}")
         return False
 
     def click_coordinates(self, coords):
@@ -175,11 +202,11 @@ class StrongholdBot:
                 print(f"Clicked template: {os.path.basename(template_path)}")
 
                 time.sleep(self.add_random_delay(1))
-                if self.find_and_click(self.SCOUT_BUTTON):
+                if self.find_and_click('SCOUT_BUTTON'):
                     time.sleep(self.add_random_delay(1))
-                    self.find_and_click(self.GO_BUTTON)
+                    self.find_and_click('GO_BUTTON')
                     time.sleep(self.add_random_delay(1))
-                    if self.find_and_click(self.SCOUT_EXIT_BUTTON):
+                    if self.find_and_click('SCOUT_EXIT_BUTTON'):
                         time.sleep(self.add_random_delay(2))
                     return True
 
@@ -199,7 +226,7 @@ class StrongholdBot:
             print(
                 f"Found {len(templates)} templates: {[os.path.basename(t) for t in templates]}")
 
-            cooldown_time = 60 * 15
+            cooldown_time = 60 * 2
             last_click = None
 
             while True:
@@ -239,7 +266,6 @@ class StrongholdBot:
         except KeyboardInterrupt:
             print("\nBot stopped by user (Ctrl+C)")
             print("Cleaning up and exiting...")
-            # You could add any cleanup code here if needed
             sys.exit(0)
         except Exception as e:
             print(f"\nAn error occurred: {str(e)}")
