@@ -4,10 +4,11 @@ from subprocess import run
 import time
 from datetime import datetime, timedelta
 import os
-import glob
 import random
 import sys
-from config import ConfigService
+from services.config_service import ConfigService
+from services.template_service import TemplateService
+from services.device_service import DeviceService
 
 
 class StrongholdBot:
@@ -17,11 +18,7 @@ class StrongholdBot:
             os.path.join(os.path.dirname(__file__), '..'))  # Go up one level
 
         self.config_service = ConfigService()
-
-        self.TEMPLATES_DIR = os.path.join(
-            self.base_path, 'stronghold-kingdoms-bot', 'templates', 'bags')
-
-        self.template_cache = {}
+        self.template_service = TemplateService(self.base_path)
 
         self.GAME_COORDS = {
             'NEXT_VILLAGE': {'x': 970, 'y': 809},
@@ -37,35 +34,10 @@ class StrongholdBot:
             self.device_id = config['device_id']
             self.number_of_villages = config['number_of_villages']
 
+        self.device_service = DeviceService(self.device_id)
+
         # Cache templates
-        self.cache_templates()
-
-        # Connect to the device
-        self.connect_device()
-
-    def cache_templates(self):
-        """Cache all template images into memory."""
-        template_paths = self.get_template_paths()
-        for path in template_paths:
-            self.template_cache[path] = cv2.imread(path)
-
-        SCOUT_BUTTON_PATH = os.path.join(
-            self.base_path, 'stronghold-kingdoms-bot', 'templates', 'general', 'scout_button.png')
-        GO_BUTTON_PATH = os.path.join(
-            self.base_path, 'stronghold-kingdoms-bot', 'templates', 'general', 'go_button.png')
-        SCOUT_EXIT_BUTTON_PATH = os.path.join(
-            self.base_path, 'stronghold-kingdoms-bot', 'templates', 'general', 'scout_exit_button.png')
-
-        # Add specific templates to the cache
-        self.template_cache['SCOUT_BUTTON'] = cv2.imread(
-            SCOUT_BUTTON_PATH)
-        self.template_cache['GO_BUTTON'] = cv2.imread(GO_BUTTON_PATH)
-        self.template_cache['SCOUT_EXIT_BUTTON'] = cv2.imread(
-            SCOUT_EXIT_BUTTON_PATH)
-
-    def connect_device(self):
-        """Connect to the specified device using ADB"""
-        run(['adb', 'connect', self.device_id])
+        self.template_service.cache_templates()
 
     def add_random_offset(self, x, y, max_radius=5):
         """Add a random offset to coordinates within a specified radius"""
@@ -77,24 +49,14 @@ class StrongholdBot:
 
         return x + offset_x, y + offset_y
 
-    def adb_command(self, command):
-        """Run ADB command for the device"""
-        return run(['adb', '-s', self.device_id] + command, capture_output=True)
-
-    def take_screenshot(self):
-        """Take and return a screenshot from the device"""
-        self.adb_command(['shell', 'screencap', '-p', '/sdcard/screen.png'])
-        self.adb_command(['pull', '/sdcard/screen.png', '.'])
-        return cv2.imread('screen.png')
-
     def find(self, template_path, threshold=0.7):
         """Find and click on a template image"""
-        template = self.template_cache.get(template_path)
+        template = self.template_service.get_template(template_path)
         if template is None:
             print(f"Template not found in cache: {template_path}")
             return False
 
-        screen = self.take_screenshot()
+        screen = self.device_service.take_screenshot()
 
         result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
@@ -107,12 +69,12 @@ class StrongholdBot:
 
     def find_and_click(self, template_path, threshold=0.7):
         """Find and click on a template image"""
-        template = self.template_cache.get(template_path)
+        template = self.template_service.get_template(template_path)
         if template is None:
             print(f"Template not found in cache: {template_path}")
             return False
 
-        screen = self.take_screenshot()
+        screen = self.device_service.take_screenshot()
 
         result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
@@ -124,8 +86,7 @@ class StrongholdBot:
             center_y = max_loc[1] + h//2
 
             rand_x, rand_y = self.add_random_offset(center_x, center_y)
-            self.adb_command(
-                ['shell', 'input', 'tap', str(rand_x), str(rand_y)])
+            self.device_service.tap(rand_x, rand_y)
             return True
         print(f"Didn't find {template_path}, max_val: {max_val}")
         return False
@@ -133,12 +94,7 @@ class StrongholdBot:
     def click_coordinates(self, coords):
         """Click on specified coordinates with random offset"""
         rand_x, rand_y = self.add_random_offset(coords['x'], coords['y'])
-        self.adb_command(['shell', 'input', 'tap', str(rand_x), str(rand_y)])
-
-    def get_template_paths(self):
-        """Get all PNG files from templates directory"""
-        template_pattern = os.path.join(self.TEMPLATES_DIR, '*.png')
-        return glob.glob(template_pattern)
+        self.device_service.tap(rand_x, rand_y)
 
     def add_random_delay(self, base_delay, variation_percent=20):
         """Add a random delay variation"""
@@ -175,9 +131,10 @@ class StrongholdBot:
     def run(self):
         """Main loop to run the bot with Ctrl+C handling"""
         try:
-            templates = self.get_template_paths()
+            templates = self.template_service.get_template_bags_paths()
             if not templates:
-                print(f"No template images found in {self.TEMPLATES_DIR}")
+                print(
+                    f"No template images found in {self.template_service.TEMPLATES_DIR}")
                 return
 
             print(

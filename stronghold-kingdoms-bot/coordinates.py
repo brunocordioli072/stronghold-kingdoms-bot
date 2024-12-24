@@ -1,6 +1,6 @@
 import re
 from subprocess import Popen, PIPE
-from config import ConfigService
+from services.config_service import ConfigService
 
 
 class TouchMonitor:

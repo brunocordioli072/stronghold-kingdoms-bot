@@ -4,9 +4,9 @@ import sys
 
 
 class ConfigService:
-    def __init__(self, config_file=None):
+    def __init__(self):
         self.base_path = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), '..'))
+            os.path.join(os.path.dirname(__file__), '..', '..'))
         self.CONFIG_FILE = os.path.join(self.base_path, "config.json")
 
     def create_config(self):
@@ -20,7 +20,7 @@ class ConfigService:
         print("Please edit config.json and set the correct values before running the script again.")
         print("Particularly, make sure to set the correct 'device_id' for your BlueStacks instance.")
 
-        with open(self.config_file, 'w') as f:
+        with open(self.CONFIG_FILE, 'w') as f:
             json.dump(config, f, indent=4)
 
         print(f"\nConfiguration saved to {self.CONFIG_FILE}")
