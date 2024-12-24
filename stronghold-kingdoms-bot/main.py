@@ -7,17 +7,19 @@ import os
 import glob
 import random
 import sys
-import json
+from config import ConfigService
 
 
 class StrongholdBot:
     def __init__(self, device_id=None, number_of_villages=None, config_file="config.json", base_path=None):
-        self.base_path = base_path or os.path.dirname(
-            os.path.abspath(__file__))
+        # Set base_path to project root, not the script directory
+        self.base_path = base_path or os.path.abspath(
+            os.path.join(os.path.dirname(__file__), '..'))  # Go up one level
 
-        # Configure paths relative to base path
-        self.CONFIG_FILE = os.path.join(self.base_path, config_file)
-        self.TEMPLATES_DIR = os.path.join(self.base_path, 'templates_bags')
+        self.config_service = ConfigService()
+
+        self.TEMPLATES_DIR = os.path.join(
+            self.base_path, 'stronghold-kingdoms-bot', 'templates_bags')
 
         self.template_cache = {}
 
@@ -31,7 +33,7 @@ class StrongholdBot:
             self.device_id = device_id
             self.number_of_villages = number_of_villages
         else:
-            config = self.load_config()
+            config = self.config_service.load_config()
             self.device_id = config['device_id']
             self.number_of_villages = config['number_of_villages']
 
@@ -48,11 +50,11 @@ class StrongholdBot:
             self.template_cache[path] = cv2.imread(path)
 
         SCOUT_BUTTON_PATH = os.path.join(
-            self.base_path, 'templates_general', 'scout_button.png')
+            self.base_path, 'stronghold-kingdoms-bot', 'templates_general', 'scout_button.png')
         GO_BUTTON_PATH = os.path.join(
-            self.base_path, 'templates_general', 'go_button.png')
+            self.base_path, 'stronghold-kingdoms-bot', 'templates_general', 'go_button.png')
         SCOUT_EXIT_BUTTON_PATH = os.path.join(
-            self.base_path, 'templates_general', 'scout_exit_button.png')
+            self.base_path, 'stronghold-kingdoms-bot', 'templates_general', 'scout_exit_button.png')
 
         # Add specific templates to the cache
         self.template_cache['SCOUT_BUTTON'] = cv2.imread(
@@ -64,51 +66,6 @@ class StrongholdBot:
     def connect_device(self):
         """Connect to the specified device using ADB"""
         run(['adb', 'connect', self.device_id])
-
-    def create_config(self):
-        """Create a new configuration file with dummy values"""
-        config = {
-            "device_id": "127.0.0.1:your-port",
-            "number_of_villages": 1
-        }
-
-        print("\nNOTICE: A new config.json file has been created with default values.")
-        print("Please edit config.json and set the correct values before running the script again.")
-        print("Particularly, make sure to set the correct 'device_id' for your BlueStacks instance.")
-
-        with open(self.CONFIG_FILE, 'w') as f:
-            json.dump(config, f, indent=4)
-
-        print(f"\nConfiguration saved to {self.CONFIG_FILE}")
-        return config
-
-    def is_default_config(self, config):
-        """Check if the configuration still has dummy values"""
-        return config.get('device_id') == '127.0.0.1:your-port'
-
-    def load_config(self):
-        """Load configuration from file or create if it doesn't exist"""
-        if not os.path.exists(self.CONFIG_FILE):
-            self.create_config()
-            sys.exit(1)
-
-        try:
-            with open(self.CONFIG_FILE, 'r') as f:
-                config = json.load(f)
-
-            if self.is_default_config(config):
-                print("\nERROR: The config.json file still contains default values!")
-                print(
-                    "Please edit config.json and set the correct values before running the script.")
-                print(
-                    "Particularly, make sure to set the correct 'device_id' for your BlueStacks instance.")
-                sys.exit(1)
-
-            return config
-        except json.JSONDecodeError:
-            print(
-                f"Error reading {self.CONFIG_FILE}. Creating new configuration.")
-            return self.create_config()
 
     def add_random_offset(self, x, y, max_radius=5):
         """Add a random offset to coordinates within a specified radius"""
@@ -273,5 +230,7 @@ class StrongholdBot:
 
 
 if __name__ == "__main__":
-    bot = StrongholdBot()
+    project_root = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), '..'))
+    bot = StrongholdBot(base_path=project_root)
     bot.run()
