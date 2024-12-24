@@ -19,7 +19,7 @@ class StrongholdBot:
         self.config_service = ConfigService()
 
         self.TEMPLATES_DIR = os.path.join(
-            self.base_path, 'stronghold-kingdoms-bot', 'templates_bags')
+            self.base_path, 'stronghold-kingdoms-bot', 'templates', 'bags')
 
         self.template_cache = {}
 
@@ -50,11 +50,11 @@ class StrongholdBot:
             self.template_cache[path] = cv2.imread(path)
 
         SCOUT_BUTTON_PATH = os.path.join(
-            self.base_path, 'stronghold-kingdoms-bot', 'templates_general', 'scout_button.png')
+            self.base_path, 'stronghold-kingdoms-bot', 'templates', 'general', 'scout_button.png')
         GO_BUTTON_PATH = os.path.join(
-            self.base_path, 'stronghold-kingdoms-bot', 'templates_general', 'go_button.png')
+            self.base_path, 'stronghold-kingdoms-bot', 'templates', 'general', 'go_button.png')
         SCOUT_EXIT_BUTTON_PATH = os.path.join(
-            self.base_path, 'stronghold-kingdoms-bot', 'templates_general', 'scout_exit_button.png')
+            self.base_path, 'stronghold-kingdoms-bot', 'templates', 'general', 'scout_exit_button.png')
 
         # Add specific templates to the cache
         self.template_cache['SCOUT_BUTTON'] = cv2.imread(
