@@ -44,7 +44,7 @@ class TouchMonitor:
                     # Convert raw Y to screen Y
                     y = int((raw_y / self.TOUCH_MAX_Y) * self.screen_height)
                     if x is not None:
-                        print(f"Click detected at: X={x}, Y={y}")
+                        print(f"Click detected at: {{'x': {x}, 'y': {y}}}")
                         x = None
                         y = None
         except KeyboardInterrupt:

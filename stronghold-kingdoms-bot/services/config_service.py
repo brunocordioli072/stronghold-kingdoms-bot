@@ -13,7 +13,11 @@ class ConfigService:
         """Create a new configuration file with dummy values"""
         config = {
             "device_id": "127.0.0.1:your-port",
-            "number_of_villages": 1
+            "number_of_villages": 1,
+            "village_1_parish_coords": {
+                "x": 1,
+                "y": 1
+            }
         }
 
         print("\nNOTICE: A new config.json file has been created with default values.")
