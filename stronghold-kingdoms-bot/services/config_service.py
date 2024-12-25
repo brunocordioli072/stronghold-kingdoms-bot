@@ -17,6 +17,10 @@ class ConfigService:
             "village_1_parish_coords": {
                 "x": 1,
                 "y": 1
+            },
+            "parish_trade_button": {
+                "x": 1,
+                "y": 1
             }
         }
 

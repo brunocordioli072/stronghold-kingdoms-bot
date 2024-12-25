@@ -176,7 +176,7 @@ class TradingModule:
         }
 
         self.buttons = {
-            "PARISH_TRADE_BUTTON": {'x': 434, 'y': 199},
+            "PARISH_TRADE_BUTTON": config["parish_trade_button"],
             "FOODS_CATEGORY": {'x': 265, 'y': 41},
             "LUXURY_CATEGORY": {'x': 613, 'y': 40},
             "EXIT_BUTTON": {'x': 1520, 'y': 418},
