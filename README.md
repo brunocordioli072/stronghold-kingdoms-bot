@@ -1,4 +1,26 @@
-# Stronghold Bot
+<div align="center">
+<p align="center">
+<img src="https://github.com/user-attachments/assets/24a479cf-1770-49ab-b079-2cb233a6112b">
+</p>
+
+<h1 align="center">
+Stronghold Bot
+</h1>
+
+[![GitHub Stars](https://img.shields.io/github/stars/brunocordioli072/stronghold-kingdoms-bot?style=flat-square)](https://github.com/brunocordioli072/stronghold-kingdoms-bot/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/brunocordioli072/stronghold-kingdoms-bot?style=flat-square)](https://github.com/brunocordioli072/stronghold-kingdoms-bot/network)
+[![GitHub Issues](https://img.shields.io/github/issues/brunocordioli072/stronghold-kingdoms-bot?style=flat-square)](https://github.com/brunocordioli072/stronghold-kingdoms-bot/issues)
+[![GitHub Contributors](https://img.shields.io/github/contributors/brunocordioli072/stronghold-kingdoms-bot?style=flat-square)](https://github.com/brunocordioli072/stronghold-kingdoms-bot/graphs/contributors)
+[![GitHub License](https://img.shields.io/github/license/brunocordioli072/stronghold-kingdoms-bot?style=flat-square)](https://github.com/brunocordioli072/stronghold-kingdoms-bot/blob/main/LICENSE)
+</div>
+
+## Disclaimer
+
+This software is an external tool designed to automate playing Stronghold Kingdoms. It is designed to interact with the game only through existing user interfaces and comply with relevant laws and regulations. The package aims to provide simplified and user-friendly interaction with the game, and it is not intended to disrupt game balance in any way or provide any unfair advantages. The package will not modify any game files or game code in any way.
+
+This software is open source, free of charge, and for learning and exchange purposes only. The developer team has the final right to interpret this project. All problems arising from the use of this software are not related to this project and the developer team. If you encounter a merchant using this software to practice on your behalf and charging for it, it may be the cost of equipment and time, etc. The problems and consequences arising from this software have nothing to do with it.
+
+## About
 
 A Python bot that automates actions in the game using ADB (Android Debug Bridge). It connects to a device, processes villages, and performs predefined actions like scouting.
 
@@ -36,6 +58,3 @@ The bot will:
 
 ## Stopping the Bot
 Press `Ctrl+C` to stop the bot safely.
-
-## Disclaimer
-This bot is intended for educational purposes only. The developers and contributors are not responsible for any misuse, including violations of game terms of service or local laws. Use at your own risk and ensure compliance with applicable regulations.
