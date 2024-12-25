@@ -28,6 +28,7 @@ A Python bot that automates actions in the game using ADB (Android Debug Bridge)
 - Python 3.x
 - ADB installed and in your PATH
 - BlueStacks or another emulator with ADB enabled
+- Tesseract and in your PATH
 
 ## Setup
 1. Install the required Python packages:
