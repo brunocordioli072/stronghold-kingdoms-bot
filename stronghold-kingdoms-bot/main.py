@@ -2,6 +2,7 @@ import threading
 import time
 from modules.scounting_module import ScoutingModule
 from modules.trading_module import TradingModule
+from numpy import random
 
 # Lock to ensure no overlapping execution
 lock = threading.Lock()
@@ -10,9 +11,24 @@ lock = threading.Lock()
 scouting_last_run = time.time()
 trading_last_run = time.time()
 
-# Scouting and trading intervals
-SCOUTING_INTERVAL = 120  # 2 minutes
-TRADING_INTERVAL = 1800  # 30 minutes
+# Define base intervals (in seconds)
+SCOUTING_BASE_INTERVAL = 120  # 2 minutes
+TRADING_BASE_INTERVAL = 900  # 15 minutes
+
+# Define the randomness range (in seconds)
+SCOUTING_VARIATION = 30  # ±30 seconds
+TRADING_VARIATION = 60  # ±1 minutes
+
+
+def get_random_interval(base, variation):
+    return base + random.randint(-variation, variation)
+
+
+# Generate intervals with randomness
+SCOUTING_INTERVAL = get_random_interval(
+    SCOUTING_BASE_INTERVAL, SCOUTING_VARIATION)
+TRADING_INTERVAL = get_random_interval(
+    TRADING_BASE_INTERVAL, TRADING_VARIATION)
 
 
 def run_scouting():

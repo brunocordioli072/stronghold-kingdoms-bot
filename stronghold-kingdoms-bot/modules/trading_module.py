@@ -34,23 +34,144 @@ class TradingModule:
 
         self.categories = {
             "FOODS": [
-                {"name": "APPLE", "coords": {'x': 250, 'y': 215}},
-                {"name": "CHEESE", "coords": {'x': 221, 'y': 288}},
-                {"name": "MEAT", "coords": {'x': 246, 'y': 366}},
-                {"name": "BREAD", "coords": {'x': 205, 'y': 448}},
-                {"name": "VEGGIES", "coords": {'x': 213, 'y': 532}},
-                {"name": "FISH", "coords": {'x': 228, 'y': 615}},
-                {"name": "ALE", "coords": {'x': 247, 'y': 696}}
+                {
+                    "name": "APPLE",
+                    "price_limit": 500,
+                    "coords": {'x': 250, 'y': 215},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 192},
+                        "bottom_right": {'x': 176, 'y': 241}
+                    }
+                },
+                {
+                    "name": "CHEESE",
+                    "price_limit": 500,
+                    "coords": {'x': 221, 'y': 288},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 276},
+                        "bottom_right": {'x': 176, 'y': 318}
+                    }
+                },
+                {
+                    "name": "MEAT",
+                    "price_limit": 500,
+                    "coords": {'x': 246, 'y': 366},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 354},
+                        "bottom_right": {'x': 176, 'y': 400}
+                    }
+                },
+                {
+                    "name": "BREAD",
+                    "price_limit": 500,
+                    "coords": {'x': 205, 'y': 448},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 437},
+                        "bottom_right": {'x': 176, 'y': 480}
+                    }
+                },
+                {
+                    "name": "VEGGIES",
+                    "price_limit": 500,
+                    "coords": {'x': 213, 'y': 532},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 516},
+                        "bottom_right": {'x': 176, 'y': 559}
+                    }
+                },
+                {
+                    "name": "FISH",
+                    "price_limit": 500,
+                    "coords": {'x': 228, 'y': 615},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 595},
+                        "bottom_right": {'x': 176, 'y': 641}
+                    }
+                },
+                {
+                    "name": "ALE",
+                    "price_limit": 200,
+                    "coords": {'x': 247, 'y': 696},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 675},
+                        "bottom_right": {'x': 176, 'y': 719}
+                    }
+                }
+
             ],
             "LUXURY": [
-                {"name": "VENISON", "coords": {'x': 250, 'y': 215}},
-                {"name": "FURNITURE", "coords": {'x': 221, 'y': 288}},
-                {"name": "METALWARE", "coords": {'x': 246, 'y': 366}},
-                {"name": "CLOTHES", "coords": {'x': 205, 'y': 448}},
-                {"name": "WINE", "coords": {'x': 213, 'y': 532}},
-                {"name": "SALT", "coords": {'x': 228, 'y': 615}},
-                {"name": "SPICES", "coords": {'x': 247, 'y': 696}},
-                {"name": "SILK", "coords": {'x': 245, 'y': 768}}
+                {
+                    "name": "VENISON",
+                    "price_limit": 50,
+                    "coords": {'x': 250, 'y': 215},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 192},
+                        "bottom_right": {'x': 176, 'y': 241}
+                    }
+                },
+                {
+                    "name": "FURNITURE",
+                    "price_limit": 50,
+                    "coords": {'x': 221, 'y': 288},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 276},
+                        "bottom_right": {'x': 176, 'y': 318}
+                    }
+                },
+                {
+                    "name": "METALWARE",
+                    "price_limit": 50,
+                    "coords": {'x': 246, 'y': 366},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 354},
+                        "bottom_right": {'x': 176, 'y': 400}
+                    }
+                },
+                {
+                    "name": "CLOTHES",
+                    "price_limit": 50,
+                    "coords": {'x': 205, 'y': 448},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 437},
+                        "bottom_right": {'x': 176, 'y': 480}
+                    }
+                },
+                {
+                    "name": "WINE",
+                    "price_limit": 20,
+                    "coords": {'x': 213, 'y': 532},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 516},
+                        "bottom_right": {'x': 176, 'y': 559}
+                    }
+                },
+                {
+                    "name": "SALT",
+                    "price_limit": 20,
+                    "coords": {'x': 228, 'y': 615},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 595},
+                        "bottom_right": {'x': 176, 'y': 641}
+                    }
+                },
+                {
+                    "name": "SPICES",
+                    "price_limit": 20,
+                    "coords": {'x': 247, 'y': 696},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 675},
+                        "bottom_right": {'x': 176, 'y': 719}
+                    }
+                },
+                {
+                    "name": "SILK",
+                    "price_limit": 20,
+                    "coords": {'x': 245, 'y': 768},
+                    "price_coords": {
+                        "top_left": {'x': 78, 'y': 757},
+                        "bottom_right": {'x': 201, 'y': 800}
+                    }
+                }
             ]
         }
 
@@ -75,8 +196,16 @@ class TradingModule:
         self.device_service.click_coordinates_and_sleep(
             self.buttons[f"{category_name}_CATEGORY"])
         for item in self.categories[category_name]:
+            text = self.get_numbers_from_coords(
+                item['price_coords']['top_left'], item['price_coords']['bottom_right'], item['name'])
+            print(f'Found {text.strip()} {item["name"]}')
+
+            if int(text) < item['price_limit']:
+                continue
+
             self.sell_product(item["coords"])
             if not self.has_available_merchants():
+                print("No available merchants")
                 return False
         return True
 
@@ -99,13 +228,27 @@ class TradingModule:
         self.device_service.click_coordinates_and_sleep(
             self.buttons["EXIT_BUTTON"])
 
+    def get_numbers_from_coords(self, coords1, coords2, name):
+        screen = self.device_service.take_screenshot()
+        cropped_image = screen[coords1['y']:coords2['y'],
+                               coords1['x']:coords2['x']]
+        custom_config = r'--psm 6 -c tessedit_char_whitelist=0123456789'
+
+        text = pytesseract.image_to_string(cropped_image, config=custom_config)
+        return text
+
+    def get_text_from_coords(self, coords1, coords2):
+        screen = self.device_service.take_screenshot()
+        cropped_image = screen[coords1['y']:coords2['y'],
+                               coords1['x']:coords2['x']]
+        text = pytesseract.image_to_string(cropped_image)
+        return text
+
     def has_available_merchants(self):
         MERCHANTS_AVAILABLE_TOP_LEFT = {'x': 1324, 'y': 755}
         MERCHANTS_AVAILABLE_BOTTOM_RIGHT = {'x': 1423, 'y': 792}
-        screen = self.device_service.take_screenshot()
-        cropped_image = screen[MERCHANTS_AVAILABLE_TOP_LEFT['y']:MERCHANTS_AVAILABLE_BOTTOM_RIGHT['y'],
-                               MERCHANTS_AVAILABLE_TOP_LEFT['x']:MERCHANTS_AVAILABLE_BOTTOM_RIGHT['x']]
-        text = pytesseract.image_to_string(cropped_image)
+        text = self.get_text_from_coords(
+            MERCHANTS_AVAILABLE_TOP_LEFT, MERCHANTS_AVAILABLE_BOTTOM_RIGHT)
         return not text.startswith("0/")
 
     def run(self):
