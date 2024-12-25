@@ -4,7 +4,7 @@
 </p>
 
 <h1 align="center">
-Stronghold Bot
+Stronghold Kingdoms Bot
 </h1>
 
 [![GitHub Stars](https://img.shields.io/github/stars/brunocordioli072/stronghold-kingdoms-bot?style=flat-square)](https://github.com/brunocordioli072/stronghold-kingdoms-bot/stargazers)
