@@ -21,6 +21,7 @@ A Python bot that automates actions in the game using ADB (Android Debug Bridge)
    ```
 
 4. Edit `config.json` with your device ID and number of villages if needed.
+5. Install tesseract https://github.com/tesseract-ocr/tesseract/releases/latest and add it to path
 
 ## Usage
 The bot will:
@@ -31,6 +32,7 @@ The bot will:
 ## Notes
 - Place your template images in the `templates_bags` folder.
 - Adjust the `config.json` file for your setup.
+- Install tesseract https://github.com/tesseract-ocr/tesseract/releases/latest and add it to path
 
 ## Stopping the Bot
 Press `Ctrl+C` to stop the bot safely.
