@@ -51,12 +51,18 @@ class DeviceService:
         result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
+        CANT_CLICK_TOP_LEFT = {'x': 582, 'y': 775}
+        CANT_CLICK_BOTTOM_RIGHT = {'x': 1022, 'y': 892}
+
         if max_val >= threshold:
             print(f"Found {template_path}, max_val: {max_val}")
             h, w = template.shape[:2]
             center_x = max_loc[0] + w//2
             center_y = max_loc[1] + h//2
-
+            if (CANT_CLICK_TOP_LEFT['x'] <= center_x <= CANT_CLICK_BOTTOM_RIGHT['x'] and
+                    CANT_CLICK_TOP_LEFT['y'] <= center_y <= CANT_CLICK_BOTTOM_RIGHT['y']):
+                print(f'Can\'t be clicked. Coords on bad position.')
+                return False
             rand_x, rand_y = self.add_random_offset(center_x, center_y)
             self.tap(rand_x, rand_y)
             return True
