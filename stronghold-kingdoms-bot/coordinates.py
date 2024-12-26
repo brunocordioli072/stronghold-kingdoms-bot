@@ -1,6 +1,7 @@
 import re
 from subprocess import Popen, PIPE
 from services.config_service import ConfigService
+import shutil
 
 
 class TouchMonitor:
@@ -75,7 +76,64 @@ class TouchMonitor:
         Popen(['adb', 'connect', self.device_address]).wait()
 
 
+def get_terminal_size():
+    try:
+        columns, rows = shutil.get_terminal_size()
+    except:
+        columns, rows = 80, 24
+    return columns, rows
+
+
+def create_box(width):
+    # Characters for box drawing
+    top_left = "╔"
+    top_right = "╗"
+    bottom_left = "╚"
+    bottom_right = "╝"
+    horizontal = "═"
+    vertical = "║"
+    left_separator = "╠"
+    right_separator = "╣"
+
+    # Calculate usable width (content area)
+    content_width = width - 2  # Subtract 2 for left and right borders
+
+    def create_line(text, padding_left=2):
+        # Left-aligned text with specified padding
+        if len(text) + padding_left > content_width:
+            text = text[:content_width - padding_left]
+        padded_text = " " * padding_left + text
+        return f"{vertical}{padded_text}{' ' * (content_width - len(padded_text))}{vertical}"
+
+    # Create box with dynamic width
+    box = [
+        f"{top_left}{horizontal * content_width}{top_right}",
+        create_line("Coordinate Recording Tool", 1),
+        f"{left_separator}{horizontal * content_width}{right_separator}",
+        create_line(
+            "This script helps record coordinates for config.json fields:"),
+        create_line("• village_1_parish_coords"),
+        create_line("• parish_trade_button_coords"),
+        create_line(""),
+        create_line("Instructions:"),
+        create_line("1. Click on the desired location on emulator 5-10 times"),
+        create_line("2. Coordinates will be logged in this format:"),
+        create_line("   Click detected at: {'x': 123, 'y': 456}"),
+        f"{bottom_left}{horizontal * content_width}{bottom_right}"
+    ]
+
+    return "\n".join(box)
+
+
+def show_instructions():
+    terminal_width, _ = get_terminal_size()
+    box_width = max(60, min(terminal_width, 80))
+    print(f"\n{create_box(box_width)}\n")
+
+
 if __name__ == "__main__":
+    show_instructions()
+
     monitor = TouchMonitor()
     monitor.connect_device()
     monitor.monitor_touches()
