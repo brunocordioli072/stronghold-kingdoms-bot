@@ -23,14 +23,15 @@ class TradingModule:
         self.template_service = TemplateService(self.base_path)
 
         config = self.config_service.load_config()
-        self.device_id = config['device_id']
+        self.device_address = config['device_address']
         self.number_of_villages = config['number_of_villages']
         self.village_1_parish_coords = config['village_1_parish_coords']
+        self.sell_config = config["sell"]
 
         # Cache templates
         self.template_service.cache_templates()
         self.device_service = DeviceService(
-            self.device_id, self.template_service)
+            self.device_address, self.template_service)
 
         self.categories = {
             "FOODS": [
@@ -176,7 +177,7 @@ class TradingModule:
         }
 
         self.buttons = {
-            "PARISH_TRADE_BUTTON": config["parish_trade_button"],
+            "PARISH_TRADE_BUTTON": config["parish_trade_button_coords"],
             "FOODS_CATEGORY": {'x': 265, 'y': 41},
             "LUXURY_CATEGORY": {'x': 613, 'y': 40},
             "EXIT_BUTTON": {'x': 1520, 'y': 418},
@@ -196,6 +197,10 @@ class TradingModule:
         self.device_service.click_coordinates_and_sleep(
             self.buttons[f"{category_name}_CATEGORY"])
         for item in self.categories[category_name]:
+            if not self.sell_config[category_name][item["name"]]:
+                print(f'Configured to not sell {item["name"]}')
+                continue
+
             text = self.get_numbers_from_coords(
                 item['price_coords']['top_left'], item['price_coords']['bottom_right'], item['name'])
             print(f'Found {text.strip()} {item["name"]}')

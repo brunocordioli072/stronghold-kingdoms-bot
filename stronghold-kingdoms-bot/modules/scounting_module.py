@@ -26,13 +26,13 @@ class ScoutingModule:
         }
 
         config = self.config_service.load_config()
-        self.device_id = config['device_id']
+        self.device_address = config['device_address']
         self.number_of_villages = config['number_of_villages']
 
         # Cache templates
         self.template_service.cache_templates()
         self.device_service = DeviceService(
-            self.device_id, self.template_service)
+            self.device_address, self.template_service)
 
     def process_village(self, templates):
         """Process a single village's scouting routine"""

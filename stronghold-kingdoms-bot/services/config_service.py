@@ -12,21 +12,42 @@ class ConfigService:
     def create_config(self):
         """Create a new configuration file with dummy values"""
         config = {
-            "device_id": "127.0.0.1:your-port",
+            "device_address": "127.0.0.1:your-port",
             "number_of_villages": 1,
             "village_1_parish_coords": {
                 "x": 1,
                 "y": 1
             },
-            "parish_trade_button": {
+            "parish_trade_button_coords": {
                 "x": 1,
                 "y": 1
+            },
+            "sell": {
+                "FOODS": {
+                    "APPLE": True,
+                    "CHEESE": True,
+                    "MEAT": True,
+                    "BREAD": True,
+                    "VEGGIES": True,
+                    "FISH": True,
+                    "ALE": True
+                },
+                "LUXURY": {
+                    "VENISON": True,
+                    "FURNITURE": True,
+                    "METALWARE": True,
+                    "CLOTHES": True,
+                    "WINE": True,
+                    "SALT": True,
+                    "SPICES": True,
+                    "SILK": True
+                }
             }
         }
 
         print("\nNOTICE: A new config.json file has been created with default values.")
         print("Please edit config.json and set the correct values before running the script again.")
-        print("Particularly, make sure to set the correct 'device_id' for your BlueStacks instance.")
+        print("Particularly, make sure to set the correct 'device_address' for your BlueStacks instance.")
 
         with open(self.CONFIG_FILE, 'w') as f:
             json.dump(config, f, indent=4)
@@ -36,7 +57,7 @@ class ConfigService:
 
     def is_default_config(self, config):
         """Check if the configuration still has dummy values"""
-        return config.get('device_id') == '127.0.0.1:your-port'
+        return config.get('device_address') == '127.0.0.1:your-port'
 
     def load_config(self):
         """Load configuration from file or create if it doesn't exist"""
@@ -53,7 +74,7 @@ class ConfigService:
                 print(
                     "Please edit config.json and set the correct values before running the script.")
                 print(
-                    "Particularly, make sure to set the correct 'device_id' for your BlueStacks instance.")
+                    "Particularly, make sure to set the correct 'device_address' for your BlueStacks instance.")
                 sys.exit(1)
 
             return config

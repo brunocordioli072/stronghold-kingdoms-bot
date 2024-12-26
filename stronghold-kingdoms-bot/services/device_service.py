@@ -6,18 +6,18 @@ from time import sleep
 
 
 class DeviceService:
-    def __init__(self, device_id, template_service: TemplateService):
-        self.device_id = device_id
+    def __init__(self, device_address, template_service: TemplateService):
+        self.device_address = device_address
         self.template_service = template_service
         self.connect_device()
 
     def connect_device(self):
         """Connect to the specified device using ADB"""
-        run(['adb', 'connect', self.device_id])
+        run(['adb', 'connect', self.device_address])
 
     def adb_command(self, command):
         """Run ADB command for the device"""
-        return run(['adb', '-s', self.device_id] + command, capture_output=True)
+        return run(['adb', '-s', self.device_address] + command, capture_output=True)
 
     def take_screenshot(self):
         """Take and return a screenshot from the device"""

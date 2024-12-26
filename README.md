@@ -43,24 +43,51 @@ This software is open source, free of charge, and for learning and exchange purp
 7. Clone the repo by running `git clone https://github.com/brunocordioli072/stronghold-kingdoms-bot`.
 8. To use the bot, run `make run` on the root folder of the `stronghold-kingdoms-bot`.
 
-## Config.json
+## Configuration
 
-The first time the bot is run it will create a `config.json` on the root folder of the `stronghold-kingdoms-bot`
+The first time the bot is run it will create a `config.json` on the root folder of the `stronghold-kingdoms-bot` that looks like this:
 ```json
 {
-    "device_id": "127.0.0.1:your-port",
-    "number_of_villages": 1,
-    "village_1_parish_coords": {
-        "x": 1,
-        "y": 1
-    },
-    "parish_trade_button": {
-        "x": 1,
-        "y": 1
+   "device_address": "127.0.0.1:your-port",
+   "number_of_villages": 1,
+   "village_1_parish_coords": {
+      "x": 1,
+      "y": 1
+   },
+   "parish_trade_button_coords": {
+      "x": 1,
+      "y": 1
+   },
+   "sell": {
+      "FOODS": {
+         "APPLE": true,
+         "CHEESE": true,
+         "MEAT": true,
+         "BREAD": true,
+         "VEGGIES": true,
+         "FISH": true,
+         "ALE": true
+      },
+      "LUXURY": {
+         "VENISON": true,
+         "FURNITURE": true,
+         "METALWARE": true,
+         "CLOTHES": true,
+         "WINE": true,
+         "SALT": true,
+         "SPICES": true,
+         "SILK": true
+      }
     }
 }
 ```
 You will need to replace these fields with the correct values. After that, run again `make run`, and the bot should start.
+Meaning of each field:
+- device_address: Address of the device.
+- number_of_villages: Number of villages the player has.
+- village_1_parish_coords: Coordinates of the Village 1 Parish. Use `make coords` to get this coordinates.
+- parish_trade_button_coords: Coordinates of trade button on Parish menu. Use `make coords` to get this coordinates.
+- sell: Configuration for selling products on parish. Set `false` on product if you don't want to sell it.
 
 ## Contributors
 
