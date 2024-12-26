@@ -2,7 +2,10 @@ from services.device_service import DeviceService
 
 
 class UtilsService:
+    """Provides utility functions"""
+
     def __init__(self, device_service: DeviceService):
+        """Sets up the service with device controls and screen coordinates"""
         self.device_service = device_service
 
         self.VILLAGE_NUMBER_TOP_LEFT = {'x': 840, 'y': 782}
@@ -11,6 +14,7 @@ class UtilsService:
         self.HOME_BUTTON = {'x': 1548, 'y': 761}
 
     def go_to_village_1(self):
+        """Navigates to village 1 by repeatedly clicking next until found"""
         number = self.device_service.get_numbers_from_coords(
             self.VILLAGE_NUMBER_TOP_LEFT, self.VILLAGE_NUMBER_BOTTOM_RIGHT)
         if number and int(number) != 1:

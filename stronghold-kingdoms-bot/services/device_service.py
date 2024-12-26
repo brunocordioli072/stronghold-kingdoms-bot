@@ -7,31 +7,34 @@ import pytesseract
 
 
 class DeviceService:
+    """Controls and interacts with Android devices using ADB"""
+
     def __init__(self, device_address, template_service: TemplateService):
+        """Sets up connection to device and initializes template service"""
         self.device_address = device_address
         self.template_service = template_service
         self.connect_device()
 
     def connect_device(self):
-        """Connect to the specified device using ADB"""
+        """Connects to the device using ADB"""
         run(['adb', 'connect', self.device_address])
 
     def adb_command(self, command):
-        """Run ADB command for the device"""
+        """Runs an ADB command on the device"""
         return run(['adb', '-s', self.device_address] + command, capture_output=True)
 
     def take_screenshot(self):
-        """Take and return a screenshot from the device"""
+        """Takes a screenshot of the device screen"""
         self.adb_command(['shell', 'screencap', '-p', '/sdcard/screen.png'])
         self.adb_command(['pull', '/sdcard/screen.png', '.'])
         return cv2.imread('screen.png')
 
     def tap(self, x, y):
-        """Tap on the specified coordinates"""
+        """Taps the screen at given coordinates"""
         self.adb_command(['shell', 'input', 'tap', str(x), str(y)])
 
     def add_random_offset(self, x, y, max_radius=5):
-        """Add a random offset to coordinates within a specified radius"""
+        """Adds small random offset to coordinates to make taps look more human"""
         offset_x = int(np.random.normal(0, max_radius/3))
         offset_y = int(np.random.normal(0, max_radius/3))
 
@@ -41,7 +44,7 @@ class DeviceService:
         return x + offset_x, y + offset_y
 
     def find_and_click(self, template_path, threshold=0.7):
-        """Find and click on a template image"""
+        """Finds a template image on screen and clicks it if found"""
         template = self.template_service.get_template(template_path)
         if template is None:
             print(f"Template not found in cache: {template_path}")
@@ -71,7 +74,7 @@ class DeviceService:
         return False
 
     def find_and_click_and_sleep(self, template_path, threshold=0.7, sleep=1):
-        """Find and click on a template image"""
+        """Finds and clicks a template image, then waits for specified time"""
         template = self.template_service.get_template(template_path)
         if template is None:
             print(f"Template not found in cache: {template_path}")
@@ -97,24 +100,27 @@ class DeviceService:
         return False
 
     def click_coordinates(self, coords):
-        """Click on specified coordinates with random offset"""
+        """Clicks at given coordinates with slight random offset"""
         rand_x, rand_y = self.add_random_offset(coords['x'], coords['y'])
         self.tap(rand_x, rand_y)
 
     def click_coordinates_and_sleep(self, coords, sleep=1):
+        """Clicks at coordinates and waits for specified time"""
         rand_x, rand_y = self.add_random_offset(coords['x'], coords['y'])
         self.tap(rand_x, rand_y)
         self.sleep(sleep)
 
     def add_random_delay(self, base_delay, variation_percent=20):
-        """Add a random delay variation"""
+        """Adds random variation to a delay time"""
         variation = base_delay * (variation_percent / 100)
         return base_delay + np.random.uniform(-variation, variation)
 
     def sleep(self, time):
+        """Waits for specified time with slight random variation"""
         sleep(self.add_random_delay(time))
 
     def get_numbers_from_coords(self, coords1, coords2, name=None):
+        """Extracts numbers from a specific area of the screen"""
         screen = self.take_screenshot()
         cropped_image = screen[coords1['y']:coords2['y'],
                                coords1['x']:coords2['x']]
@@ -124,6 +130,7 @@ class DeviceService:
         return text
 
     def get_text_from_coords(self, coords1, coords2):
+        """Extracts any text from a specific area of the screen"""
         screen = self.take_screenshot()
         cropped_image = screen[coords1['y']:coords2['y'],
                                coords1['x']:coords2['x']]

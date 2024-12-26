@@ -7,24 +7,25 @@ from services.utils_service import UtilsService
 
 
 class TradingModule:
+    """Manages automated trading operations across multiple villages"""
+
     def __init__(self):
         self.base_path = os.path.abspath(
             os.path.join(os.path.dirname(__file__), '..', '..'))
 
         self.config_service = ConfigService()
-        self.template_service = TemplateService(self.base_path)
-
         config = self.config_service.load_config()
         self.device_address = config['device_address']
         self.number_of_villages = config['number_of_villages']
         self.village_1_parish_coords = config['village_1_parish_coords']
         self.sell_config = config["sell"]
 
-        # Cache templates
-        self.template_service.cache_templates()
+        self.template_service = TemplateService(self.base_path)
         self.device_service = DeviceService(
             self.device_address, self.template_service)
         self.utils_service = UtilsService(self.device_service)
+
+        self.template_service.cache_templates()
 
         self.categories = {
             "FOODS": [
@@ -180,6 +181,7 @@ class TradingModule:
         }
 
     def sell_product(self, coords):
+        """Sells a product by clicking it and confirming the sale"""
         self.device_service.click_coordinates_and_sleep(coords)
         self.device_service.click_coordinates_and_sleep(
             self.buttons["FIND_BEST_SELL_PRICE"])
@@ -187,6 +189,7 @@ class TradingModule:
             self.buttons["SELL_BUTTON"])
 
     def process_category(self, category_name):
+        """Processes all items in a category, selling those above price limit"""
         self.device_service.click_coordinates_and_sleep(
             self.buttons[f"{category_name}_CATEGORY"])
         for item in self.categories[category_name]:
@@ -208,6 +211,7 @@ class TradingModule:
         return True
 
     def process_village(self):
+        """Handles trading operations for a single village"""
         self.device_service.click_coordinates_and_sleep(
             self.village_1_parish_coords)
         self.device_service.click_coordinates_and_sleep(
@@ -227,6 +231,7 @@ class TradingModule:
             self.buttons["EXIT_BUTTON"])
 
     def has_available_merchants(self):
+        """Checks if there are merchants available for trading"""
         MERCHANTS_AVAILABLE_TOP_LEFT = {'x': 1324, 'y': 755}
         MERCHANTS_AVAILABLE_BOTTOM_RIGHT = {'x': 1423, 'y': 792}
         text = self.device_service.get_text_from_coords(
@@ -234,6 +239,7 @@ class TradingModule:
         return not text.startswith("0/")
 
     def run(self):
+        """Starts the trading process for all villages"""
         try:
             for i in range(self.number_of_villages):
                 if i != 0:

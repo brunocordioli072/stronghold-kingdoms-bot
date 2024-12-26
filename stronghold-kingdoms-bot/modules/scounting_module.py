@@ -12,7 +12,14 @@ class ScoutingModule:
             os.path.join(os.path.dirname(__file__), '..', '..'))
 
         self.config_service = ConfigService()
+        config = self.config_service.load_config()
+        self.device_address = config['device_address']
+        self.number_of_villages = config['number_of_villages']
+
         self.template_service = TemplateService(self.base_path)
+        self.device_service = DeviceService(
+            self.device_address, self.template_service)
+        self.utils_service = UtilsService(self.device_service)
 
         self.GAME_COORDS = {
             'NEXT_VILLAGE': {'x': 970, 'y': 809},
@@ -20,15 +27,7 @@ class ScoutingModule:
             'MIDDLE_OF_SCREEN': {'x': 794, 'y': 439},
         }
 
-        config = self.config_service.load_config()
-        self.device_address = config['device_address']
-        self.number_of_villages = config['number_of_villages']
-
-        # Cache templates
         self.template_service.cache_templates()
-        self.device_service = DeviceService(
-            self.device_address, self.template_service)
-        self.utils_service = UtilsService(self.device_service)
 
     def process_village(self, templates):
         """Process a single village's scouting routine"""
