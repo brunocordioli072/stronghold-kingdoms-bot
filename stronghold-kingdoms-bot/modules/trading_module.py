@@ -200,7 +200,7 @@ class TradingModule:
                 item['price_coords']['top_left'], item['price_coords']['bottom_right'], item['name'])
             print(f'Found {text.strip()} {item["name"]}')
 
-            if int(text) < item['price_limit']:
+            if text == "" or text and int(text) < item['price_limit']:
                 continue
 
             self.sell_product(item["coords"])
