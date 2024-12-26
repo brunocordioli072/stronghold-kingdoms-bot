@@ -1,5 +1,5 @@
 import time
-from modules.scounting_module import ScoutingModule
+from modules.scouting_module import ScoutingModule
 from modules.trading_module import TradingModule
 from services.config_service import ConfigService
 from numpy import random
