@@ -16,14 +16,16 @@ def get_random_interval(base, variation):
 def countdown_sleep(seconds):
     """Sleep with a countdown, printing every second."""
     for remaining in range(seconds, 0, -1):
-        print(f"Waiting... {remaining} seconds remaining", end="\r")
+        print(f"Waiting... {remaining:3d} seconds remaining",
+              end="\r", flush=True)
         time.sleep(1)
-    print(" " * 100, end="\r")  # Clear the line
+    print(" " * 40, end="\r", flush=True)
 
 
 def run_tasks():
     config_service = ConfigService()
     config = config_service.load_config()
+
     scouting = ScoutingModule()
     trading = TradingModule()
 
