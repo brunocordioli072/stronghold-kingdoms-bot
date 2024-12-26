@@ -43,6 +43,25 @@ This software is open source, free of charge, and for learning and exchange purp
 7. Clone the repo by running `git clone https://github.com/brunocordioli072/stronghold-kingdoms-bot`.
 8. To use the bot, run `make run` on the root folder of the `stronghold-kingdoms-bot`.
 
+## Config.json
+
+The first time the bot is run it will create a `config.json` on the root folder of the `stronghold-kingdoms-bot`
+```json
+{
+    "device_id": "127.0.0.1:your-port",
+    "number_of_villages": 1,
+    "village_1_parish_coords": {
+        "x": 1,
+        "y": 1
+    },
+    "parish_trade_button": {
+        "x": 1,
+        "y": 1
+    }
+}
+```
+You will need to replace these fields with the correct values. After that, run again `make run`, and the bot should start.
+
 ## Contributors
 
 Thanks to the following contributors for their contributions to this project.
