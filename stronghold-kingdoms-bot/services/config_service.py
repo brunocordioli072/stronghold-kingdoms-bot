@@ -14,6 +14,7 @@ class ConfigService:
         config = {
             "device_address": "127.0.0.1:your-port",
             "number_of_villages": 1,
+            "interval_between_loop_in_seconds": 120,
             "village_1_parish_coords": {
                 "x": 1,
                 "y": 1
@@ -23,24 +24,24 @@ class ConfigService:
                 "y": 1
             },
             "sell": {
-                "FOODS": {
-                    "APPLE": True,
-                    "CHEESE": True,
-                    "MEAT": True,
-                    "BREAD": True,
-                    "VEGGIES": True,
-                    "FISH": True,
-                    "ALE": True
+                "foods": {
+                    "apple": True,
+                    "cheese": True,
+                    "meat": True,
+                    "bread": True,
+                    "veggies": True,
+                    "fish": True,
+                    "ale": True
                 },
-                "LUXURY": {
-                    "VENISON": True,
-                    "FURNITURE": True,
-                    "METALWARE": True,
-                    "CLOTHES": True,
-                    "WINE": True,
-                    "SALT": True,
-                    "SPICES": True,
-                    "SILK": True
+                "luxury": {
+                    "venison": True,
+                    "furniture": True,
+                    "metalware": True,
+                    "clothes": True,
+                    "wine": True,
+                    "salt": True,
+                    "spices": True,
+                    "silk": True
                 }
             }
         }

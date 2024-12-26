@@ -50,6 +50,7 @@ The first time the bot is run it will create a `config.json` on the root folder 
 {
    "device_address": "127.0.0.1:your-port",
    "number_of_villages": 1,
+   "interval_between_loop_in_seconds": 120,
    "village_1_parish_coords": {
       "x": 1,
       "y": 1
@@ -59,34 +60,35 @@ The first time the bot is run it will create a `config.json` on the root folder 
       "y": 1
    },
    "sell": {
-      "FOODS": {
-         "APPLE": true,
-         "CHEESE": true,
-         "MEAT": true,
-         "BREAD": true,
-         "VEGGIES": true,
-         "FISH": true,
-         "ALE": true
+      "foods": {
+         "apple": true,
+         "cheese": true,
+         "meat": true,
+         "bread": true,
+         "veggies": true,
+         "fish": true,
+         "ale": true
       },
-      "LUXURY": {
-         "VENISON": true,
-         "FURNITURE": true,
-         "METALWARE": true,
-         "CLOTHES": true,
-         "WINE": true,
-         "SALT": true,
-         "SPICES": true,
-         "SILK": true
+      "luxury": {
+         "venison": true,
+         "furniture": true,
+         "metalware": true,
+         "clothes": true,
+         "wine": true,
+         "salt": true,
+         "spices": true,
+         "silk": true
       }
-    }
+   }
 }
 ```
 You will need to replace these fields with the correct values. After that, run again `make run`, and the bot should start.
 Meaning of each field:
 - device_address: Address of the device.
 - number_of_villages: Number of villages the player has.
-- village_1_parish_coords: Coordinates of the Village 1 Parish. Use `make coords` to get this coordinates.
-- parish_trade_button_coords: Coordinates of trade button on Parish menu. Use `make coords` to get this coordinates.
+- interval_between_loop_in_seconds: This is the waiting time the bot has after doing the scouting and trading.
+- village_1_parish_coords: Coordinates of the village 1 parish. Use `make coords` to get this coordinates.
+- parish_trade_button_coords: Coordinates of trade button on parish menu. Use `make coords` to get this coordinates.
 - sell: Configuration for selling products on parish. Set `false` on product if you don't want to sell it.
 
 ## Contributors

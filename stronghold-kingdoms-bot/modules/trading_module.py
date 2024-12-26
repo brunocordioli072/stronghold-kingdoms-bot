@@ -28,9 +28,9 @@ class TradingModule:
         self.template_service.cache_templates()
 
         self.categories = {
-            "FOODS": [
+            "foods": [
                 {
-                    "name": "APPLE",
+                    "name": "apple",
                     "price_limit": 500,
                     "coords": {'x': 250, 'y': 215},
                     "price_coords": {
@@ -39,7 +39,7 @@ class TradingModule:
                     }
                 },
                 {
-                    "name": "CHEESE",
+                    "name": "cheese",
                     "price_limit": 500,
                     "coords": {'x': 221, 'y': 288},
                     "price_coords": {
@@ -48,7 +48,7 @@ class TradingModule:
                     }
                 },
                 {
-                    "name": "MEAT",
+                    "name": "meat",
                     "price_limit": 500,
                     "coords": {'x': 246, 'y': 366},
                     "price_coords": {
@@ -57,7 +57,7 @@ class TradingModule:
                     }
                 },
                 {
-                    "name": "BREAD",
+                    "name": "bread",
                     "price_limit": 500,
                     "coords": {'x': 205, 'y': 448},
                     "price_coords": {
@@ -66,7 +66,7 @@ class TradingModule:
                     }
                 },
                 {
-                    "name": "VEGGIES",
+                    "name": "veggies",
                     "price_limit": 500,
                     "coords": {'x': 213, 'y': 532},
                     "price_coords": {
@@ -75,7 +75,7 @@ class TradingModule:
                     }
                 },
                 {
-                    "name": "FISH",
+                    "name": "fish",
                     "price_limit": 500,
                     "coords": {'x': 228, 'y': 615},
                     "price_coords": {
@@ -84,7 +84,7 @@ class TradingModule:
                     }
                 },
                 {
-                    "name": "ALE",
+                    "name": "ale",
                     "price_limit": 200,
                     "coords": {'x': 247, 'y': 696},
                     "price_coords": {
@@ -94,9 +94,9 @@ class TradingModule:
                 }
 
             ],
-            "LUXURY": [
+            "luxury": [
                 {
-                    "name": "VENISON",
+                    "name": "venison",
                     "price_limit": 50,
                     "coords": {'x': 250, 'y': 215},
                     "price_coords": {
@@ -105,7 +105,7 @@ class TradingModule:
                     }
                 },
                 {
-                    "name": "FURNITURE",
+                    "name": "furniture",
                     "price_limit": 50,
                     "coords": {'x': 221, 'y': 288},
                     "price_coords": {
@@ -114,7 +114,7 @@ class TradingModule:
                     }
                 },
                 {
-                    "name": "METALWARE",
+                    "name": "metalware",
                     "price_limit": 50,
                     "coords": {'x': 246, 'y': 366},
                     "price_coords": {
@@ -123,7 +123,7 @@ class TradingModule:
                     }
                 },
                 {
-                    "name": "CLOTHES",
+                    "name": "clothes",
                     "price_limit": 50,
                     "coords": {'x': 205, 'y': 448},
                     "price_coords": {
@@ -132,7 +132,7 @@ class TradingModule:
                     }
                 },
                 {
-                    "name": "WINE",
+                    "name": "wine",
                     "price_limit": 20,
                     "coords": {'x': 213, 'y': 532},
                     "price_coords": {
@@ -141,7 +141,7 @@ class TradingModule:
                     }
                 },
                 {
-                    "name": "SALT",
+                    "name": "salt",
                     "price_limit": 20,
                     "coords": {'x': 228, 'y': 615},
                     "price_coords": {
@@ -150,7 +150,7 @@ class TradingModule:
                     }
                 },
                 {
-                    "name": "SPICES",
+                    "name": "spices",
                     "price_limit": 20,
                     "coords": {'x': 247, 'y': 696},
                     "price_coords": {
@@ -159,7 +159,7 @@ class TradingModule:
                     }
                 },
                 {
-                    "name": "SILK",
+                    "name": "silk",
                     "price_limit": 20,
                     "coords": {'x': 245, 'y': 768},
                     "price_coords": {
@@ -191,7 +191,7 @@ class TradingModule:
     def process_category(self, category_name):
         """Processes all items in a category, selling those above price limit"""
         self.device_service.click_coordinates_and_sleep(
-            self.buttons[f"{category_name}_CATEGORY"])
+            self.buttons[f"{category_name.upper()}_CATEGORY"])
         for item in self.categories[category_name]:
             if not self.sell_config[category_name][item["name"]]:
                 print(f'Configured to not sell {item["name"]}')
@@ -221,7 +221,7 @@ class TradingModule:
                 self.buttons["EXIT_BUTTON"])
             return
 
-        for category in ["FOODS", "LUXURY"]:
+        for category in ["foods", "luxury"]:
             if not self.process_category(category):
                 self.device_service.click_coordinates_and_sleep(
                     self.buttons["EXIT_BUTTON"])

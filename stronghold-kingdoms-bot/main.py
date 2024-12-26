@@ -1,11 +1,11 @@
 import time
 from modules.scounting_module import ScoutingModule
 from modules.trading_module import TradingModule
+from services.config_service import ConfigService
 from numpy import random
 import sys
 
 # Define base interval (in seconds) and randomness range
-BASE_INTERVAL = 120  # 2 minutes
 VARIATION = 30  # ±30 seconds
 
 
@@ -22,6 +22,8 @@ def countdown_sleep(seconds):
 
 
 def run_tasks():
+    config_service = ConfigService()
+    config = config_service.load_config()
     scouting = ScoutingModule()
     trading = TradingModule()
 
@@ -36,7 +38,8 @@ def run_tasks():
             trading.run()
 
             # Wait for randomized interval with countdown
-            interval = get_random_interval(BASE_INTERVAL, VARIATION)
+            interval = get_random_interval(
+                config['interval_between_loop_in_seconds'], VARIATION)
             print(
                 f"Trading completed. Waiting {interval} seconds before scouting.\n")
             countdown_sleep(interval)
