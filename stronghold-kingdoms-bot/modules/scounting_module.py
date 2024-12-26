@@ -1,14 +1,9 @@
-import cv2
-import numpy as np
-from subprocess import run
-import time
-from datetime import datetime, timedelta
 import os
-import random
 import sys
 from services.config_service import ConfigService
 from services.template_service import TemplateService
 from services.device_service import DeviceService
+from services.utils_service import UtilsService
 
 
 class ScoutingModule:
@@ -33,6 +28,7 @@ class ScoutingModule:
         self.template_service.cache_templates()
         self.device_service = DeviceService(
             self.device_address, self.template_service)
+        self.utils_service = UtilsService(self.device_service)
 
     def process_village(self, templates):
         """Process a single village's scouting routine"""
@@ -86,10 +82,7 @@ class ScoutingModule:
 
                 self.device_service.sleep(2)
 
-            self.device_service.click_coordinates_and_sleep(
-                self.GAME_COORDS['NEXT_VILLAGE'], 2)
-            self.device_service.click_coordinates_and_sleep(
-                self.GAME_COORDS['HOME_BUTTON'], 2)
+            self.utils_service.go_to_village_1()
 
         except KeyboardInterrupt:
             print("\nBot stopped by user (Ctrl+C)")

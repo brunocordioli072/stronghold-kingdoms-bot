@@ -3,6 +3,7 @@ from subprocess import run
 import numpy as np
 from services.template_service import TemplateService
 from time import sleep
+import pytesseract
 
 
 class DeviceService:
@@ -112,3 +113,19 @@ class DeviceService:
 
     def sleep(self, time):
         sleep(self.add_random_delay(time))
+
+    def get_numbers_from_coords(self, coords1, coords2, name=None):
+        screen = self.take_screenshot()
+        cropped_image = screen[coords1['y']:coords2['y'],
+                               coords1['x']:coords2['x']]
+        custom_config = r'--psm 6 -c tessedit_char_whitelist=0123456789'
+
+        text = pytesseract.image_to_string(cropped_image, config=custom_config)
+        return text
+
+    def get_text_from_coords(self, coords1, coords2):
+        screen = self.take_screenshot()
+        cropped_image = screen[coords1['y']:coords2['y'],
+                               coords1['x']:coords2['x']]
+        text = pytesseract.image_to_string(cropped_image)
+        return text

@@ -1,17 +1,9 @@
-import cv2
-import numpy as np
-from subprocess import run
-import time
-from datetime import datetime, timedelta
 import os
-import random
 import sys
 from services.config_service import ConfigService
 from services.template_service import TemplateService
 from services.device_service import DeviceService
-from typing import Dict
-from PIL import Image
-import pytesseract
+from services.utils_service import UtilsService
 
 
 class TradingModule:
@@ -32,6 +24,7 @@ class TradingModule:
         self.template_service.cache_templates()
         self.device_service = DeviceService(
             self.device_address, self.template_service)
+        self.utils_service = UtilsService(self.device_service)
 
         self.categories = {
             "FOODS": [
@@ -201,7 +194,7 @@ class TradingModule:
                 print(f'Configured to not sell {item["name"]}')
                 continue
 
-            text = self.get_numbers_from_coords(
+            text = self.device_service.get_numbers_from_coords(
                 item['price_coords']['top_left'], item['price_coords']['bottom_right'], item['name'])
             print(f'Found {text.strip()} {item["name"]}')
 
@@ -233,26 +226,10 @@ class TradingModule:
         self.device_service.click_coordinates_and_sleep(
             self.buttons["EXIT_BUTTON"])
 
-    def get_numbers_from_coords(self, coords1, coords2, name):
-        screen = self.device_service.take_screenshot()
-        cropped_image = screen[coords1['y']:coords2['y'],
-                               coords1['x']:coords2['x']]
-        custom_config = r'--psm 6 -c tessedit_char_whitelist=0123456789'
-
-        text = pytesseract.image_to_string(cropped_image, config=custom_config)
-        return text
-
-    def get_text_from_coords(self, coords1, coords2):
-        screen = self.device_service.take_screenshot()
-        cropped_image = screen[coords1['y']:coords2['y'],
-                               coords1['x']:coords2['x']]
-        text = pytesseract.image_to_string(cropped_image)
-        return text
-
     def has_available_merchants(self):
         MERCHANTS_AVAILABLE_TOP_LEFT = {'x': 1324, 'y': 755}
         MERCHANTS_AVAILABLE_BOTTOM_RIGHT = {'x': 1423, 'y': 792}
-        text = self.get_text_from_coords(
+        text = self.device_service.get_text_from_coords(
             MERCHANTS_AVAILABLE_TOP_LEFT, MERCHANTS_AVAILABLE_BOTTOM_RIGHT)
         return not text.startswith("0/")
 
@@ -264,8 +241,7 @@ class TradingModule:
                         self.buttons["NEXT_VILLAGE_BUTTON"], 2)
                 self.process_village()
 
-            self.device_service.click_coordinates_and_sleep(
-                self.buttons["NEXT_VILLAGE_BUTTON"], 2)
+            self.utils_service.go_to_village_1()
 
         except KeyboardInterrupt:
             print("\nBot stopped by user (Ctrl+C)")
