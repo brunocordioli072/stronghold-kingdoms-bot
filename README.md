@@ -20,42 +20,35 @@ This software is an external tool designed to automate playing Stronghold Kingdo
 
 This software is open source, free of charge, and for learning and exchange purposes only. The developer team has the final right to interpret this project. All problems arising from the use of this software are not related to this project and the developer team. If you encounter a merchant using this software to practice on your behalf and charging for it, it may be the cost of equipment and time, etc. The problems and consequences arising from this software have nothing to do with it.
 
-## About
-
-A Python bot that automates actions in the game using ADB (Android Debug Bridge). It connects to a device, processes villages, and performs predefined actions like scouting.
-
 ## Requirements
-- Python 3.x
-- ADB installed and in your PATH
-- BlueStacks or another emulator with ADB enabled
-- Tesseract installed and in your PATH
+- [Android Debug Bridge](https://community.chocolatey.org/packages/adb)
+- [Tesseract Open Source OCR Engine](https://community.chocolatey.org/packages/tesseract)
+- [Python](https://community.chocolatey.org/packages/python#)
+- [GNU Make](https://community.chocolatey.org/packages/make)
 
-## Setup
-1. Install the required Python packages:
-   ```sh
-   pip install -r requirements.txt
-   ```
+## Getting Started
 
-2. Ensure ADB is set up and the device is running.
+1. Install Chocolatey https://chocolatey.org/install#individual.
+    - Chocolatey is a package manager for Windows. It is easier to install the needed dependencies with it.
+2. Install Android Debug Bridge by running `choco install adb` on your terminal as admin.
+    - Android Debug Bridge is command-line tool that enable communication with a device. It enables to send inputs directly to the emulator.
+3. Install Tesseract Open Source OCR Engine by running `choco install tesseract` on your terminal as admin.
+    - Tesseract is a free, open-source Optical Character Recognition (OCR) engine that converts images of text into machine-readable text.
+4. Install Python by running `choco install python --pre` on your terminal as admin.
+    - The programming language used for the project.
+5. Install GNU Make by running `choco install make` on your terminal as admin.
+    - GNU Make is a tool that automates the process of building and managing software projects.
+6. Enable Android Debug Bridge on your emulator. **(Bluestacks is recommended.)**
+    - Bluestacks: Settings > Advanced > Enable Android Debug Bridge.
+7. Clone the repo by running `git clone https://github.com/brunocordioli072/stronghold-kingdoms-bot`.
+8. To use the bot, run `make run` on the root folder of the `stronghold-kingdoms-bot`.
 
-3. Run the bot:
-   ```sh
-   python ./main.py
-   ```
+## Contributors
 
-4. Edit `config.json` with your device ID and number of villages if needed.
-5. Install tesseract https://github.com/tesseract-ocr/tesseract/releases/latest and add it to path
+Thanks to the following contributors for their contributions to this project.
 
-## Usage
-The bot will:
-1. Connect to the specified device.
-2. Process each village, performing actions based on image templates.
-3. Repeat for all villages with cooldowns in between.
+<a href="https://github.com/brunocordioli072/stronghold-kingdoms-bot/graphs/contributors">
 
-## Notes
-- Place your template images in the `templates_bags` folder.
-- Adjust the `config.json` file for your setup.
-- Install tesseract https://github.com/tesseract-ocr/tesseract/releases/latest and add it to path
+  <img src="https://contrib.rocks/image?repo=brunocordioli072/stronghold-kingdoms-bot" />
 
-## Stopping the Bot
-Press `Ctrl+C` to stop the bot safely.
+</a>
