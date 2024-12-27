@@ -51,6 +51,7 @@ The first time the bot is run it will create a `config.json` on the root folder 
    "device_address": "127.0.0.1:your-port",
    "number_of_villages": 1,
    "interval_between_loop_in_seconds": 120,
+   "village_1_name": "YourVillageName",
    "village_1_parish_coords": {
       "x": 1,
       "y": 1
@@ -87,6 +88,7 @@ Meaning of each field:
 - device_address: Address of the device.
 - number_of_villages: Number of villages the player has.
 - interval_between_loop_in_seconds: This is the waiting time the bot has after doing the scouting and trading.
+- village_1_name: Your first village name. No special characters.
 - village_1_parish_coords: Coordinates of the village 1 parish. Use `make coords` to get this coordinates.
 - parish_trade_button_coords: Coordinates of trade button on parish menu. Use `make coords` to get this coordinates.
 - sell: Configuration for selling products on parish. Set `false` on product if you don't want to sell it.

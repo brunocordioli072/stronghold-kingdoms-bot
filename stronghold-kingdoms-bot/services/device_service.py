@@ -130,9 +130,31 @@ class DeviceService:
         return text
 
     def get_text_from_coords(self, coords1, coords2):
-        """Extracts any text from a specific area of the screen"""
+        """Extracts text from a specific area of the screen with improved recognition"""
+
+        # Take screenshot and crop the region of interest
         screen = self.take_screenshot()
         cropped_image = screen[coords1['y']:coords2['y'],
                                coords1['x']:coords2['x']]
-        text = pytesseract.image_to_string(cropped_image)
-        return text
+
+        # Convert to grayscale
+        gray = cv2.cvtColor(cropped_image, cv2.COLOR_BGR2GRAY)
+
+        # Apply thresholding to get black text on white background
+        _, binary = cv2.threshold(
+            gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+        # Increase image size to improve recognition
+        scaled = cv2.resize(binary, None, fx=2, fy=2,
+                            interpolation=cv2.INTER_CUBIC)
+
+        # Apply slight gaussian blur to reduce noise
+        denoised = cv2.GaussianBlur(scaled, (3, 3), 0)
+
+        # Configure Tesseract parameters for better recognition
+        custom_config = r'--oem 3 --psm 6 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ãõáéíóúâêîôûàèìòù'
+
+        # Perform OCR
+        text = pytesseract.image_to_string(denoised, config=custom_config)
+
+        return text.strip()
