@@ -45,7 +45,8 @@ class DeviceService:
 
     def find_and_click(self, template_path, threshold=0.7):
         """Finds a template image on screen and clicks it if found"""
-        template = self.template_service.get_template(template_path)
+        t = self.template_service.get_template(template_path)
+        template = t["img"]
         if template is None:
             print(f"Template not found in cache: {template_path}")
             return False
@@ -58,7 +59,7 @@ class DeviceService:
         CANT_CLICK_TOP_LEFT = {'x': 582, 'y': 775}
         CANT_CLICK_BOTTOM_RIGHT = {'x': 1022, 'y': 892}
 
-        if max_val >= threshold:
+        if max_val >= t['threshold']:
             print(f"Found {template_path}, max_val: {max_val}")
             h, w = template.shape[:2]
             center_x = max_loc[0] + w//2
@@ -75,7 +76,8 @@ class DeviceService:
 
     def find_and_click_and_sleep(self, template_path, threshold=0.7, sleep=1):
         """Finds and clicks a template image, then waits for specified time"""
-        template = self.template_service.get_template(template_path)
+        t = self.template_service.get_template(template_path)
+        template = t["img"]
         if template is None:
             print(f"Template not found in cache: {template_path}")
             return False
@@ -85,7 +87,7 @@ class DeviceService:
         result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
-        if max_val >= threshold:
+        if max_val >= t['threshold']:
             print(f"Found {template_path}, max_val: {max_val}")
             h, w = template.shape[:2]
             center_x = max_loc[0] + w//2
@@ -152,7 +154,7 @@ class DeviceService:
         denoised = cv2.GaussianBlur(scaled, (3, 3), 0)
 
         # Configure Tesseract parameters for better recognition
-        custom_config = r'--oem 3 --psm 6 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ãõáéíóúâêîôûàèìòù'
+        custom_config = r'--oem 3 --psm 6 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ãõáéíóúâêîôûàèìòù/'
 
         # Perform OCR
         text = pytesseract.image_to_string(denoised, config=custom_config)

@@ -41,6 +41,7 @@ This software is open source, free of charge, and for learning and exchange purp
 6. Enable Android Debug Bridge on your emulator. **(Bluestacks is recommended.)**
     - Bluestacks: Settings > Advanced > Enable Android Debug Bridge.
 7. Clone the repo by running `git clone https://github.com/brunocordioli072/stronghold-kingdoms-bot`.
+8. Install the repo dependencies by running `pip install -r ./requirements.txt`
 8. To use the bot, run `make run` on the root folder of the `stronghold-kingdoms-bot`.
 
 ## Configuration

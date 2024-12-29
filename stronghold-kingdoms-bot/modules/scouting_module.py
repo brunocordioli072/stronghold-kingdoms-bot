@@ -36,9 +36,9 @@ class ScoutingModule:
         self.device_service.click_coordinates_and_sleep(
             self.GAME_COORDS['MIDDLE_OF_SCREEN'])
 
-        for template_path in templates:
-            if self.device_service.find_and_click(template_path):
-                print(f"Clicked template: {os.path.basename(template_path)}")
+        for template_name in templates:
+            if self.device_service.find_and_click(template_name):
+                print(f"Clicked template: {template_name}")
 
                 self.device_service.sleep(1)
                 if self.device_service.find_and_click('SCOUT_BUTTON'):
@@ -50,21 +50,21 @@ class ScoutingModule:
                     return True
 
             else:
-                print(f"Template not found: {os.path.basename(template_path)}")
+                print(f"Template not found: {template_name}")
 
         return False
 
     def run(self):
         """Main loop to run the bot with Ctrl+C handling"""
         try:
-            templates = self.template_service.get_template_bags_paths()
+            templates = self.template_service.get_template_bags_names()
             if not templates:
                 print(
                     f"No template images found in {self.template_service.TEMPLATES_DIR}")
                 return
 
             print(
-                f"Found {len(templates)} templates: {[os.path.basename(t) for t in templates]}")
+                f"Found {len(templates)} templates: {templates}")
 
             for i in range(self.number_of_villages):
                 if i != 0:
