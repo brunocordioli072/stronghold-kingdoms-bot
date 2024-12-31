@@ -70,3 +70,5 @@ tmp/
 
 screen.png
 config.json
+test.py
+processed_image.png

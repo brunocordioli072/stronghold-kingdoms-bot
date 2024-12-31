@@ -32,139 +32,138 @@ class TradingModule:
                 {
                     "name": "apple",
                     "price_limit": 500,
-                    "coords": {'x': 250, 'y': 215},
+                    "coords": {'x': 113, 'y': 129},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 192},
-                        "bottom_right": {'x': 176, 'y': 241}
+                        "top_left": {'x': 44, 'y': 114},
+                        "bottom_right": {'x': 106, 'y': 137}
                     }
                 },
                 {
                     "name": "cheese",
                     "price_limit": 500,
-                    "coords": {'x': 221, 'y': 288},
+                    "coords": {'x': 180, 'y': 176},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 276},
-                        "bottom_right": {'x': 176, 'y': 318}
+                        "top_left": {'x': 43, 'y': 161},
+                        "bottom_right": {'x': 93, 'y': 185}
                     }
                 },
                 {
                     "name": "meat",
                     "price_limit": 500,
-                    "coords": {'x': 246, 'y': 366},
+                    "coords": {'x': 185, 'y': 224},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 354},
-                        "bottom_right": {'x': 176, 'y': 400}
+                        "top_left": {'x': 44, 'y': 207},
+                        "bottom_right": {'x': 93, 'y': 234}
                     }
                 },
                 {
                     "name": "bread",
                     "price_limit": 500,
-                    "coords": {'x': 205, 'y': 448},
+                    "coords": {'x': 213, 'y': 266},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 437},
-                        "bottom_right": {'x': 176, 'y': 480}
+                        "top_left": {'x': 44, 'y': 257},
+                        "bottom_right": {'x': 93, 'y': 280}
                     }
                 },
                 {
                     "name": "veggies",
                     "price_limit": 500,
-                    "coords": {'x': 213, 'y': 532},
+                    "coords": {'x': 226, 'y': 316},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 516},
-                        "bottom_right": {'x': 176, 'y': 559}
+                        "top_left": {'x': 43, 'y': 302},
+                        "bottom_right": {'x': 93, 'y': 326}
                     }
                 },
                 {
                     "name": "fish",
                     "price_limit": 500,
-                    "coords": {'x': 228, 'y': 615},
+                    "coords": {'x': 236, 'y': 364},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 595},
-                        "bottom_right": {'x': 176, 'y': 641}
+                        "top_left": {'x': 43, 'y': 351},
+                        "bottom_right": {'x': 93, 'y': 374}
                     }
                 },
                 {
                     "name": "ale",
                     "price_limit": 200,
-                    "coords": {'x': 247, 'y': 696},
+                    "coords": {'x': 228, 'y': 408},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 675},
-                        "bottom_right": {'x': 176, 'y': 719}
+                        "top_left": {'x': 41, 'y': 397},
+                        "bottom_right": {'x': 90, 'y': 421}
                     }
                 }
-
             ],
             "luxury": [
                 {
                     "name": "venison",
                     "price_limit": 50,
-                    "coords": {'x': 250, 'y': 215},
+                    "coords": {'x': 113, 'y': 129},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 192},
-                        "bottom_right": {'x': 176, 'y': 241}
+                        "top_left": {'x': 44, 'y': 114},
+                        "bottom_right": {'x': 106, 'y': 137}
                     }
                 },
                 {
                     "name": "furniture",
                     "price_limit": 50,
-                    "coords": {'x': 221, 'y': 288},
+                    "coords": {'x': 180, 'y': 176},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 276},
-                        "bottom_right": {'x': 176, 'y': 318}
+                        "top_left": {'x': 43, 'y': 161},
+                        "bottom_right": {'x': 93, 'y': 185}
                     }
                 },
                 {
                     "name": "metalware",
                     "price_limit": 50,
-                    "coords": {'x': 246, 'y': 366},
+                    "coords": {'x': 185, 'y': 224},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 354},
-                        "bottom_right": {'x': 176, 'y': 400}
+                        "top_left": {'x': 44, 'y': 207},
+                        "bottom_right": {'x': 93, 'y': 234}
                     }
                 },
                 {
                     "name": "clothes",
                     "price_limit": 50,
-                    "coords": {'x': 205, 'y': 448},
+                    "coords": {'x': 213, 'y': 266},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 437},
-                        "bottom_right": {'x': 176, 'y': 480}
+                        "top_left": {'x': 44, 'y': 257},
+                        "bottom_right": {'x': 93, 'y': 280}
                     }
                 },
                 {
                     "name": "wine",
                     "price_limit": 20,
-                    "coords": {'x': 213, 'y': 532},
+                    "coords": {'x': 226, 'y': 316},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 516},
-                        "bottom_right": {'x': 176, 'y': 559}
+                        "top_left": {'x': 43, 'y': 302},
+                        "bottom_right": {'x': 93, 'y': 326}
                     }
                 },
                 {
                     "name": "salt",
                     "price_limit": 20,
-                    "coords": {'x': 228, 'y': 615},
+                    "coords": {'x': 236, 'y': 364},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 595},
-                        "bottom_right": {'x': 176, 'y': 641}
+                        "top_left": {'x': 43, 'y': 351},
+                        "bottom_right": {'x': 93, 'y': 374}
                     }
                 },
                 {
                     "name": "spices",
                     "price_limit": 20,
-                    "coords": {'x': 247, 'y': 696},
+                    "coords": {'x': 228, 'y': 408},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 675},
-                        "bottom_right": {'x': 176, 'y': 719}
+                        "top_left": {'x': 41, 'y': 397},
+                        "bottom_right": {'x': 90, 'y': 421}
                     }
                 },
                 {
                     "name": "silk",
                     "price_limit": 20,
-                    "coords": {'x': 245, 'y': 768},
+                    "coords": {'x': 231, 'y': 457},
                     "price_coords": {
-                        "top_left": {'x': 78, 'y': 757},
-                        "bottom_right": {'x': 201, 'y': 800}
+                        "top_left": {'x': 43, 'y': 443},
+                        "bottom_right": {'x': 87, 'y': 468}
                     }
                 }
             ]
@@ -172,12 +171,15 @@ class TradingModule:
 
         self.buttons = {
             "PARISH_TRADE_BUTTON": config["parish_trade_button_coords"],
-            "FOODS_CATEGORY": {'x': 265, 'y': 41},
+            "FOODS_CATEGORY": {'x': 258, 'y': 29},
             "LUXURY_CATEGORY": {'x': 613, 'y': 40},
             "EXIT_BUTTON": {'x': 1520, 'y': 418},
-            "NEXT_VILLAGE_BUTTON": {'x': 970, 'y': 809},
+            "NEXT_VILLAGE_BUTTON": {'x': 892, 'y': 852},
             "FIND_BEST_SELL_PRICE": {'x': 1073, 'y': 662},
-            "SELL_BUTTON": {'x': 1323, 'y': 662}
+            "SELL_BUTTON": {'x': 1323, 'y': 662},
+            "FILTERS_BUTTON": {'x': 1567, 'y': 768},
+            "TRADERS_FILTERS_BUTTON": {'x': 95, 'y': 220},
+            "FORAGING_FILTERS_BUTTON": {'x': 152, 'y': 264},
         }
 
     def sell_product(self, coords):
@@ -241,6 +243,11 @@ class TradingModule:
     def run(self):
         """Starts the trading process for all villages"""
         try:
+            self.device_service.click_coordinates_and_sleep(
+                self.buttons["FILTERS_BUTTON"])
+            self.device_service.click_coordinates_and_sleep(
+                self.buttons["TRADERS_FILTERS_BUTTON"])
+
             for i in range(self.number_of_villages):
                 if i != 0:
                     self.device_service.click_coordinates_and_sleep(

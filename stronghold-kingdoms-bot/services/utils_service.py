@@ -12,10 +12,10 @@ class UtilsService:
         config = self.config_service.load_config()
         self.village_1_name = config['village_1_name']
 
-        self.VILLAGE_NUMBER_TOP_LEFT = {'x': 670, 'y': 780}
-        self.VILLAGE_NUMBER_BOTTOM_RIGHT = {'x': 913, 'y': 820}
-        self.NEXT_VILLAGE = {'x': 970, 'y': 809}
-        self.HOME_BUTTON = {'x': 1548, 'y': 761}
+        self.VILLAGE_NUMBER_TOP_LEFT = {'x': 730, 'y': 825}
+        self.VILLAGE_NUMBER_BOTTOM_RIGHT = {'x': 859, 'y': 850}
+        self.NEXT_VILLAGE = {'x': 892, 'y': 852}
+        self.HOME_BUTTON = {'x': 1573, 'y': 809}
 
     def go_to_village_1(self):
         """Navigates to village 1 by repeatedly clicking next until found"""

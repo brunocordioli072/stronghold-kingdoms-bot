@@ -33,7 +33,7 @@ class DeviceService:
         """Taps the screen at given coordinates"""
         self.adb_command(['shell', 'input', 'tap', str(x), str(y)])
 
-    def add_random_offset(self, x, y, max_radius=5):
+    def add_random_offset(self, x, y, max_radius=1):
         """Adds small random offset to coordinates to make taps look more human"""
         offset_x = int(np.random.normal(0, max_radius/3))
         offset_y = int(np.random.normal(0, max_radius/3))
@@ -43,7 +43,91 @@ class DeviceService:
 
         return x + offset_x, y + offset_y
 
-    def find_and_click(self, template_path, threshold=0.7):
+    def find_and_click_template(self, template_path, threshold=None):
+        """Finds a template image on screen and clicks it if found, with edge detection."""
+        t = self.template_service.get_template(template_path)
+        template = t["img"]
+        if template is None:
+            print(f"Template not found in cache: {template_path}")
+            return False
+
+        image = self.take_screenshot()
+
+        # Convert to HSV for color-based filtering
+        hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
+        # Define color ranges for masks
+        gray_lower = np.array([0, 0, 50])
+        gray_upper = np.array([180, 50, 200])
+        blue_lower = np.array([90, 50, 50])
+        blue_upper = np.array([130, 255, 255])
+        white_lower = np.array([0, 0, 200])
+        white_upper = np.array([180, 50, 255])
+        green_lower = np.array([25, 100, 50])
+        green_upper = np.array([35, 255, 255])
+
+        # Create masks
+        gray_mask = cv2.inRange(hsv, gray_lower, gray_upper)
+        blue_mask = cv2.inRange(hsv, blue_lower, blue_upper)
+        white_mask = cv2.inRange(hsv, white_lower, white_upper)
+        green_mask = cv2.inRange(hsv, green_lower, green_upper)
+
+        # Combine masks for background
+        background_mask = cv2.bitwise_or(blue_mask, gray_mask)
+        background_mask = cv2.bitwise_or(background_mask, white_mask)
+        background_mask = cv2.bitwise_or(background_mask, green_mask)
+
+        # Create menu mask and apply it
+        menu_mask = np.zeros_like(background_mask)
+        # Define regions for menus
+        regions = [
+            [0, 0, 100, 200],
+            [image.shape[1] - 350, 0, 350, 170],
+            [0, image.shape[0] - 150, 100, 150],
+            [image.shape[1] - 100, image.shape[0] - 150, 100, 150],
+            [image.shape[1] // 2 - 70, image.shape[0] // 2 - 70, 155, 155],
+            [image.shape[1] // 2 - 125, image.shape[0] - 80, 255, 80],
+        ]
+        for x, y, w, h in regions:
+            cv2.rectangle(menu_mask, (x, y), (x + w, y + h), 255, -1)
+
+        # Combine masks and invert to isolate icons
+        background_mask = cv2.bitwise_or(background_mask, menu_mask)
+        icons_mask = cv2.bitwise_not(background_mask)
+
+        # Apply mask to isolate icons
+        icons_only = cv2.bitwise_and(image, image, mask=icons_mask)
+
+        # Convert to grayscale for edge detection
+        gray_icons = cv2.cvtColor(icons_only, cv2.COLOR_BGR2GRAY)
+        gray_template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
+
+        # Apply Canny edge detection
+        # Adjust thresholds as needed
+        edges_icons = cv2.Canny(gray_icons, 50, 150)
+
+        # Save the edge-detected images for debugging
+        cv2.imwrite('processed_image.png', edges_icons)
+
+        # Match template using edge-detected images
+        result = cv2.matchTemplate(
+            edges_icons, gray_template, cv2.TM_CCOEFF_NORMED)
+        _, max_val, _, max_loc = cv2.minMaxLoc(result)
+
+        effective_threshold = threshold if threshold is not None else t['threshold']
+        if max_val >= effective_threshold:
+            print(f"Found {template_path}, max_val: {max_val}")
+            h, w = template.shape[:2]
+            center_x = max_loc[0] + w // 2
+            center_y = max_loc[1] + h // 2
+            rand_x, rand_y = self.add_random_offset(center_x, center_y)
+            self.tap(rand_x, rand_y)
+            return True
+
+        print(f"Didn't find {template_path}, max_val: {max_val}")
+        return False
+
+    def find_and_click(self, template_path, threshold=None):
         """Finds a template image on screen and clicks it if found"""
         t = self.template_service.get_template(template_path)
         template = t["img"]
@@ -56,20 +140,34 @@ class DeviceService:
         result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
-        CANT_CLICK_TOP_LEFT = {'x': 582, 'y': 775}
-        CANT_CLICK_BOTTOM_RIGHT = {'x': 1022, 'y': 892}
+        CANT_CLICK_AREAS = [
+            {'top_left': {'x': 582, 'y': 775},
+                'bottom_right': {'x': 1022, 'y': 892}},
+            {'top_left': {'x': 0, 'y': 2}, 'bottom_right': {'x': 101, 'y': 200}},
+            {'top_left': {'x': 2, 'y': 791}, 'bottom_right': {'x': 104, 'y': 891}},
+            {'top_left': {'x': 1256, 'y': 0}, 'bottom_right': {'x': 1590, 'y': 53}},
+            {'top_left': {'x': 1439, 'y': 52},
+                'bottom_right': {'x': 1591, 'y': 108}},
+            {'top_left': {'x': 1529, 'y': 108},
+                'bottom_right': {'x': 1593, 'y': 161}},
+        ]
 
-        if max_val >= t['threshold']:
+        effective_threshold = threshold if threshold is not None else t['threshold']
+
+        if max_val >= effective_threshold:
             print(f"Found {template_path}, max_val: {max_val}")
             h, w = template.shape[:2]
             center_x = max_loc[0] + w//2
             center_y = max_loc[1] + h//2
-            if (CANT_CLICK_TOP_LEFT['x'] <= center_x <= CANT_CLICK_BOTTOM_RIGHT['x'] and
-                    CANT_CLICK_TOP_LEFT['y'] <= center_y <= CANT_CLICK_BOTTOM_RIGHT['y']):
-                print(f'Can\'t be clicked. Coords on bad position.')
-                return False
+            for area in CANT_CLICK_AREAS:
+                if (area['top_left']['x'] <= center_x <= area['bottom_right']['x'] and
+                        area['top_left']['y'] <= center_y <= area['bottom_right']['y']):
+                    print(
+                        f"Can't be clicked. Coords ({center_x}, {center_y}) are in a restricted area.")
+                    return False
             rand_x, rand_y = self.add_random_offset(center_x, center_y)
             self.tap(rand_x, rand_y)
+
             return True
         print(f"Didn't find {template_path}, max_val: {max_val}")
         return False

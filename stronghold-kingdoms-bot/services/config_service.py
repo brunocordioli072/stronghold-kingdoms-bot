@@ -14,7 +14,7 @@ class ConfigService:
         config = {
             "device_address": "127.0.0.1:your-port",
             "number_of_villages": 1,
-            "interval_between_loop_in_seconds": 120,
+            "interval_between_loop_in_seconds": 240,
             "village_1_name": "YourVillageName",
             "village_1_parish_coords": {
                 "x": 1,

@@ -40,9 +40,10 @@ This software is open source, free of charge, and for learning and exchange purp
     - GNU Make is a tool that automates the process of building and managing software projects.
 6. Enable Android Debug Bridge on your emulator. **(Bluestacks is recommended.)**
     - Bluestacks: Settings > Advanced > Enable Android Debug Bridge.
-7. Clone the repo by running `git clone https://github.com/brunocordioli072/stronghold-kingdoms-bot`.
-8. Install the repo dependencies by running `pip install -r ./requirements.txt`
-8. To use the bot, run `make run` on the root folder of the `stronghold-kingdoms-bot`.
+7. Go to Stronghold Kingdoms app > Menu > Settings > Set User Interface Size > Set to minimum
+8. Clone the repo by running `git clone https://github.com/brunocordioli072/stronghold-kingdoms-bot`.
+9. Install the repo dependencies by running `pip install -r ./requirements.txt`
+10. To use the bot, run `make run` on the root folder of the `stronghold-kingdoms-bot` with the Stronghold Kingdoms app open on Emulator.
 
 ## Configuration
 
@@ -51,7 +52,7 @@ The first time the bot is run it will create a `config.json` on the root folder 
 {
    "device_address": "127.0.0.1:your-port",
    "number_of_villages": 1,
-   "interval_between_loop_in_seconds": 120,
+   "interval_between_loop_in_seconds": 240,
    "village_1_name": "YourVillageName",
    "village_1_parish_coords": {
       "x": 1,

@@ -1,5 +1,5 @@
 import re
-from subprocess import Popen, PIPE
+from subprocess import Popen, PIPE, run
 from services.config_service import ConfigService
 import shutil
 
@@ -12,6 +12,8 @@ class TouchMonitor:
         self.screen_width, self.screen_height = self.get_screen_resolution()
         self.TOUCH_MAX_X = 32767  # Typical max X coordinate for touch panels
         self.TOUCH_MAX_Y = 32767  # Typical max Y coordinate for touch panels
+
+        run(['adb', 'connect', self.device_address])
         self.touch_device = self.find_touch_device()
 
     def get_screen_resolution(self):
