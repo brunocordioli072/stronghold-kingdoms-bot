@@ -234,8 +234,8 @@ class TradingModule:
 
     def has_available_merchants(self):
         """Checks if there are merchants available for trading"""
-        MERCHANTS_AVAILABLE_TOP_LEFT = {'x': 1324, 'y': 755}
-        MERCHANTS_AVAILABLE_BOTTOM_RIGHT = {'x': 1423, 'y': 792}
+        MERCHANTS_AVAILABLE_TOP_LEFT = {'x': 1370, 'y': 746}
+        MERCHANTS_AVAILABLE_BOTTOM_RIGHT = {'x': 1430, 'y': 769}
         text = self.device_service.get_text_from_coords(
             MERCHANTS_AVAILABLE_TOP_LEFT, MERCHANTS_AVAILABLE_BOTTOM_RIGHT)
         return not text.startswith("0/")
