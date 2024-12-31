@@ -44,7 +44,7 @@ class TradingModule:
                     "coords": {'x': 180, 'y': 176},
                     "price_coords": {
                         "top_left": {'x': 43, 'y': 161},
-                        "bottom_right": {'x': 93, 'y': 185}
+                        "bottom_right": {'x': 103, 'y': 185}
                     }
                 },
                 {
@@ -53,7 +53,7 @@ class TradingModule:
                     "coords": {'x': 185, 'y': 224},
                     "price_coords": {
                         "top_left": {'x': 44, 'y': 207},
-                        "bottom_right": {'x': 93, 'y': 234}
+                        "bottom_right": {'x': 103, 'y': 234}
                     }
                 },
                 {
@@ -62,7 +62,7 @@ class TradingModule:
                     "coords": {'x': 213, 'y': 266},
                     "price_coords": {
                         "top_left": {'x': 44, 'y': 257},
-                        "bottom_right": {'x': 93, 'y': 280}
+                        "bottom_right": {'x': 103, 'y': 280}
                     }
                 },
                 {
@@ -71,7 +71,7 @@ class TradingModule:
                     "coords": {'x': 226, 'y': 316},
                     "price_coords": {
                         "top_left": {'x': 43, 'y': 302},
-                        "bottom_right": {'x': 93, 'y': 326}
+                        "bottom_right": {'x': 103, 'y': 326}
                     }
                 },
                 {
@@ -80,7 +80,7 @@ class TradingModule:
                     "coords": {'x': 236, 'y': 364},
                     "price_coords": {
                         "top_left": {'x': 43, 'y': 351},
-                        "bottom_right": {'x': 93, 'y': 374}
+                        "bottom_right": {'x': 103, 'y': 374}
                     }
                 },
                 {
@@ -89,7 +89,7 @@ class TradingModule:
                     "coords": {'x': 228, 'y': 408},
                     "price_coords": {
                         "top_left": {'x': 41, 'y': 397},
-                        "bottom_right": {'x': 90, 'y': 421}
+                        "bottom_right": {'x': 103, 'y': 424}
                     }
                 }
             ],
@@ -109,7 +109,7 @@ class TradingModule:
                     "coords": {'x': 180, 'y': 176},
                     "price_coords": {
                         "top_left": {'x': 43, 'y': 161},
-                        "bottom_right": {'x': 93, 'y': 185}
+                        "bottom_right": {'x': 103, 'y': 185}
                     }
                 },
                 {
@@ -118,7 +118,7 @@ class TradingModule:
                     "coords": {'x': 185, 'y': 224},
                     "price_coords": {
                         "top_left": {'x': 44, 'y': 207},
-                        "bottom_right": {'x': 93, 'y': 234}
+                        "bottom_right": {'x': 103, 'y': 234}
                     }
                 },
                 {
@@ -127,7 +127,7 @@ class TradingModule:
                     "coords": {'x': 213, 'y': 266},
                     "price_coords": {
                         "top_left": {'x': 44, 'y': 257},
-                        "bottom_right": {'x': 93, 'y': 280}
+                        "bottom_right": {'x': 103, 'y': 280}
                     }
                 },
                 {
@@ -136,7 +136,7 @@ class TradingModule:
                     "coords": {'x': 226, 'y': 316},
                     "price_coords": {
                         "top_left": {'x': 43, 'y': 302},
-                        "bottom_right": {'x': 93, 'y': 326}
+                        "bottom_right": {'x': 103, 'y': 326}
                     }
                 },
                 {
@@ -145,7 +145,7 @@ class TradingModule:
                     "coords": {'x': 236, 'y': 364},
                     "price_coords": {
                         "top_left": {'x': 43, 'y': 351},
-                        "bottom_right": {'x': 93, 'y': 374}
+                        "bottom_right": {'x': 103, 'y': 374}
                     }
                 },
                 {
@@ -154,7 +154,7 @@ class TradingModule:
                     "coords": {'x': 228, 'y': 408},
                     "price_coords": {
                         "top_left": {'x': 41, 'y': 397},
-                        "bottom_right": {'x': 90, 'y': 421}
+                        "bottom_right": {'x': 103, 'y': 424}
                     }
                 },
                 {
@@ -163,7 +163,7 @@ class TradingModule:
                     "coords": {'x': 231, 'y': 457},
                     "price_coords": {
                         "top_left": {'x': 43, 'y': 443},
-                        "bottom_right": {'x': 87, 'y': 468}
+                        "bottom_right": {'x': 103, 'y': 468}
                     }
                 }
             ]
