@@ -103,6 +103,13 @@ Meaning of each field:
 - parish_trade_button_coords: Coordinates of trade button on parish menu. Use `make coords` to get this coordinates.
 - sell: Configuration for selling products on parish. Set `false` on product if you don't want to sell it.
 
+## Future Goals
+
+- [x] Auto scout for all villages.
+- [x] Auto trade for all villages.
+- [ ] Auto attack enemies for all villages.
+- [ ] Auto create troops for all villages.
+
 ### ⭐ If you like it, give it a star~ ⭐
 
 ## Contributors
