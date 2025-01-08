@@ -26,12 +26,6 @@ This software is open source, free of charge, and for learning and exchange purp
 - [Python](https://community.chocolatey.org/packages/python#)
 - [GNU Make](https://community.chocolatey.org/packages/make)
 
-
-# Stronghold Kingdoms Bot
-
-A bot for automating Stronghold Kingdoms gameplay in Android emulators.
-
-
 # Getting Started
 
 ## Quick Install
