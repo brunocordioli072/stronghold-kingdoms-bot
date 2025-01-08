@@ -103,6 +103,8 @@ Meaning of each field:
 - parish_trade_button_coords: Coordinates of trade button on parish menu. Use `make coords` to get this coordinates.
 - sell: Configuration for selling products on parish. Set `false` on product if you don't want to sell it.
 
+### ⭐ If you like it, give it a star~ ⭐
+
 ## Contributors
 
 Thanks to the following contributors for their contributions to this project.
