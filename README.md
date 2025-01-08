@@ -26,7 +26,21 @@ This software is open source, free of charge, and for learning and exchange purp
 - [Python](https://community.chocolatey.org/packages/python#)
 - [GNU Make](https://community.chocolatey.org/packages/make)
 
-## Getting Started
+
+# Stronghold Kingdoms Bot
+
+A bot for automating Stronghold Kingdoms gameplay in Android emulators.
+
+
+# Getting Started
+
+## Quick Install
+
+```powershell
+Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/brunocordioli072/stronghold-kingdoms-bot/main/scripts/install.ps1" -OutFile "./install.ps1"; &"./install.ps1"
+```
+
+## Manual Setup
 
 1. Install Chocolatey https://chocolatey.org/install#individual.
     - Chocolatey is a package manager for Windows. It is easier to install the needed dependencies with it.
