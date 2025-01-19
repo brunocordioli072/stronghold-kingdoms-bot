@@ -29,8 +29,8 @@ class ScoutingModule:
             'HOME_BUTTON': {'x': 1573, 'y': 809},
             'MIDDLE_OF_SCREEN': {'x': 794, 'y': 439},
             "FILTERS_BUTTON": {'x': 1567, 'y': 768},
-            "TRADERS_FILTERS_BUTTON": {'x': 95, 'y': 220},
-            "FORAGING_FILTERS_BUTTON": {'x': 152, 'y': 264},
+            "TRADERS_FILTERS_BUTTON": {'x': 189, 'y': 166},
+            "FORAGING_FILTERS_BUTTON": {'x': 141, 'y': 211},
             "VILLAGES_IN_YOUR_FACTION": {'x': 154, 'y': 167},
         }
 
