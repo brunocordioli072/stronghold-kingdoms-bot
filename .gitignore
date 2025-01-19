@@ -72,3 +72,5 @@ screen.png
 config.json
 test.py
 processed_image.png
+job_id.txt
+final_log.txt
