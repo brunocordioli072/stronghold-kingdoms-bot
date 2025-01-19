@@ -17,12 +17,12 @@ logger.add(
 )
 
 logger.add(
-    "app.log",                      # Log file path
-    rotation="1 day",               # Rotate daily
-    retention="1 day",             # Keep logs for 1 week
+    "app.log",
+    rotation="1 day",
+    retention="1 day",
     # Clean format for files
     format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}",
-    compression="zip"               # Compress rotated files
+    compression="zip"
 )
 
 
