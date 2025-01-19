@@ -1,5 +1,6 @@
 import os
 import sys
+from loguru import logger
 from stronghold_kingdoms_bot.services.config_service import ConfigService
 from stronghold_kingdoms_bot.services.template_service import TemplateService
 from stronghold_kingdoms_bot.services.device_service import DeviceService
@@ -50,7 +51,7 @@ class ScoutingModule:
 
         for template_name in templates:
             if self.device_service.find_and_click_template(template_name):
-                print(f"Clicked template: {template_name}")
+                logger.info(f"Clicked template: {template_name}")
 
                 self.device_service.sleep(1)
                 if self.device_service.find_and_click('SCOUT_BUTTON', 0.52):
@@ -63,7 +64,7 @@ class ScoutingModule:
                     return True
 
             else:
-                print(f"Template not found: {template_name}")
+                logger.info(f"Template not found: {template_name}")
 
         return False
 
@@ -76,11 +77,11 @@ class ScoutingModule:
                 self.GAME_COORDS["FORAGING_FILTERS_BUTTON"])
             templates = self.template_service.get_template_bags_names()
             if not templates:
-                print(
+                logger.info(
                     f"No template images found in {self.template_service.TEMPLATES_DIR}")
                 return
 
-            print(
+            logger.info(
                 f"Found {len(templates)} templates: {templates}")
 
             for i in range(self.number_of_villages):
@@ -90,18 +91,18 @@ class ScoutingModule:
                     self.device_service.click_coordinates_and_sleep(
                         self.GAME_COORDS['HOME_BUTTON'], 2)
 
-                print(f"\nProcessing Village {i + 1}")
+                logger.info(f"\nProcessing Village {i + 1}")
                 if self.process_village(templates):
-                    print(f"Successfully processed Village {i + 1}")
+                    logger.info(f"Successfully processed Village {i + 1}")
                 else:
-                    print(f"No action needed for Village {i + 1}")
+                    logger.info(f"No action needed for Village {i + 1}")
 
             self.utils_service.go_to_village_1()
 
         except KeyboardInterrupt:
-            print("\nBot stopped by user (Ctrl+C)")
-            print("Cleaning up and exiting...")
+            logger.info("\nBot stopped by user (Ctrl+C)")
+            logger.info("Cleaning up and exiting...")
             sys.exit(0)
         except Exception as e:
-            print(f"\nAn error occurred: {str(e)}")
+            logger.info(f"\nAn error occurred: {str(e)}")
             raise

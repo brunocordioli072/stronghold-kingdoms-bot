@@ -1,5 +1,6 @@
 from stronghold_kingdoms_bot.services.device_service import DeviceService
 from stronghold_kingdoms_bot.services.config_service import ConfigService
+from loguru import logger
 
 
 class UtilsService:
@@ -22,15 +23,15 @@ class UtilsService:
         village_name = self.device_service.get_text_from_coords(
             self.VILLAGE_NUMBER_TOP_LEFT, self.VILLAGE_NUMBER_BOTTOM_RIGHT)
 
-        print(
+        logger.info(
             f"Current village name: {village_name}, Target village: {self.village_1_name}")
 
         if village_name and village_name == self.village_1_name:
-            print("Found target village, clicking home button")
+            logger.info("Found target village, clicking home button")
             self.device_service.click_coordinates_and_sleep(
                 self.HOME_BUTTON, 2)
         else:
-            print("Not at target village, clicking next")
+            logger.info("Not at target village, clicking next")
             self.device_service.click_coordinates_and_sleep(
                 self.NEXT_VILLAGE, 2)
             self.go_to_village_1()

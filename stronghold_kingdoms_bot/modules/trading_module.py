@@ -1,5 +1,6 @@
 import os
 import sys
+from loguru import logger
 from stronghold_kingdoms_bot.services.config_service import ConfigService
 from stronghold_kingdoms_bot.services.template_service import TemplateService
 from stronghold_kingdoms_bot.services.device_service import DeviceService
@@ -196,19 +197,19 @@ class TradingModule:
             self.buttons[f"{category_name.upper()}_CATEGORY"])
         for item in self.categories[category_name]:
             if not self.sell_config[category_name][item["name"]]:
-                print(f'Configured to not sell {item["name"]}')
+                logger.info(f'Configured to not sell {item["name"]}')
                 continue
 
             text = self.device_service.get_numbers_from_coords(
                 item['price_coords']['top_left'], item['price_coords']['bottom_right'], item['name'])
-            print(f'Found {text.strip()} {item["name"]}')
+            logger.info(f'Found {text.strip()} {item["name"]}')
 
             if text == "" or text and int(text) < item['price_limit']:
                 continue
 
             self.sell_product(item["coords"])
             if not self.has_available_merchants():
-                print("No available merchants")
+                logger.info("No available merchants")
                 return False
         return True
 
@@ -257,9 +258,9 @@ class TradingModule:
             self.utils_service.go_to_village_1()
 
         except KeyboardInterrupt:
-            print("\nBot stopped by user (Ctrl+C)")
-            print("Cleaning up and exiting...")
+            logger.info("\nBot stopped by user (Ctrl+C)")
+            logger.info("Cleaning up and exiting...")
             sys.exit(0)
         except Exception as e:
-            print(f"\nAn error occurred: {str(e)}")
+            logger.info(f"\nAn error occurred: {str(e)}")
             raise

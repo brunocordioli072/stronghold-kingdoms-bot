@@ -4,6 +4,7 @@ import numpy as np
 from stronghold_kingdoms_bot.services.template_service import TemplateService
 from time import sleep
 import pytesseract
+from loguru import logger
 
 
 class DeviceService:
@@ -48,7 +49,7 @@ class DeviceService:
         t = self.template_service.get_template(template_path)
         template = t["img"]
         if template is None:
-            print(f"Template not found in cache: {template_path}")
+            logger.info(f"Template not found in cache: {template_path}")
             return False
 
         image = self.take_screenshot()
@@ -116,7 +117,7 @@ class DeviceService:
 
         effective_threshold = threshold if threshold is not None else t['threshold']
         if max_val >= effective_threshold:
-            print(f"Found {template_path}, max_val: {max_val}")
+            logger.info(f"Found {template_path}, max_val: {max_val}")
             h, w = template.shape[:2]
             center_x = max_loc[0] + w // 2
             center_y = max_loc[1] + h // 2
@@ -124,7 +125,7 @@ class DeviceService:
             self.tap(rand_x, rand_y)
             return True
 
-        print(f"Didn't find {template_path}, max_val: {max_val}")
+        logger.info(f"Didn't find {template_path}, max_val: {max_val}")
         return False
 
     def find_and_click(self, template_path, threshold=None):
@@ -132,7 +133,7 @@ class DeviceService:
         t = self.template_service.get_template(template_path)
         template = t["img"]
         if template is None:
-            print(f"Template not found in cache: {template_path}")
+            logger.info(f"Template not found in cache: {template_path}")
             return False
 
         screen = self.take_screenshot()
@@ -155,21 +156,21 @@ class DeviceService:
         effective_threshold = threshold if threshold is not None else t['threshold']
 
         if max_val >= effective_threshold:
-            print(f"Found {template_path}, max_val: {max_val}")
+            logger.info(f"Found {template_path}, max_val: {max_val}")
             h, w = template.shape[:2]
             center_x = max_loc[0] + w//2
             center_y = max_loc[1] + h//2
             for area in CANT_CLICK_AREAS:
                 if (area['top_left']['x'] <= center_x <= area['bottom_right']['x'] and
                         area['top_left']['y'] <= center_y <= area['bottom_right']['y']):
-                    print(
+                    logger.info(
                         f"Can't be clicked. Coords ({center_x}, {center_y}) are in a restricted area.")
                     return False
             rand_x, rand_y = self.add_random_offset(center_x, center_y)
             self.tap(rand_x, rand_y)
 
             return True
-        print(f"Didn't find {template_path}, max_val: {max_val}")
+        logger.info(f"Didn't find {template_path}, max_val: {max_val}")
         return False
 
     def find_and_click_and_sleep(self, template_path, threshold=0.7, sleep=1):
@@ -177,7 +178,7 @@ class DeviceService:
         t = self.template_service.get_template(template_path)
         template = t["img"]
         if template is None:
-            print(f"Template not found in cache: {template_path}")
+            logger.info(f"Template not found in cache: {template_path}")
             return False
 
         screen = self.take_screenshot()
@@ -186,7 +187,7 @@ class DeviceService:
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
         if max_val >= t['threshold']:
-            print(f"Found {template_path}, max_val: {max_val}")
+            logger.info(f"Found {template_path}, max_val: {max_val}")
             h, w = template.shape[:2]
             center_x = max_loc[0] + w//2
             center_y = max_loc[1] + h//2
@@ -195,7 +196,7 @@ class DeviceService:
             self.tap(rand_x, rand_y)
             self.sleep(sleep)
             return True
-        print(f"Didn't find {template_path}, max_val: {max_val}")
+        logger.info(f"Didn't find {template_path}, max_val: {max_val}")
         self.sleep(sleep)
         return False
 

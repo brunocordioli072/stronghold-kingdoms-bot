@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+from loguru import logger
 
 
 class ConfigService:
@@ -47,14 +48,17 @@ class ConfigService:
             }
         }
 
-        print("\nNOTICE: A new config.json file has been created with default values.")
-        print("Please edit config.json and set the correct values before running the script again.")
-        print("Particularly, make sure to set the correct 'device_address' for your BlueStacks instance.")
+        logger.info(
+            "\nNOTICE: A new config.json file has been created with default values.")
+        logger.info(
+            "Please edit config.json and set the correct values before running the script again.")
+        logger.info(
+            "Particularly, make sure to set the correct 'device_address' for your BlueStacks instance.")
 
         with open(self.CONFIG_FILE, 'w') as f:
             json.dump(config, f, indent=4)
 
-        print(f"\nConfiguration saved to {self.CONFIG_FILE}")
+        logger.info(f"\nConfiguration saved to {self.CONFIG_FILE}")
         return config
 
     def is_default_config(self, config):
@@ -72,15 +76,16 @@ class ConfigService:
                 config = json.load(f)
 
             if self.is_default_config(config):
-                print("\nERROR: The config.json file still contains default values!")
-                print(
+                logger.info(
+                    "\nERROR: The config.json file still contains default values!")
+                logger.info(
                     "Please edit config.json and set the correct values before running the script.")
-                print(
+                logger.info(
                     "Particularly, make sure to set the correct 'device_address' for your BlueStacks instance.")
                 sys.exit(1)
 
             return config
         except json.JSONDecodeError:
-            print(
+            logger.info(
                 f"Error reading {self.CONFIG_FILE}. Creating new configuration.")
             return self.create_config()
