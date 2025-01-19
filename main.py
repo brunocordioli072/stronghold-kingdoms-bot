@@ -16,6 +16,15 @@ logger.add(
     format="<green>{time:HH:mm:ss}</green> | <level>{level}</level> | <level>{message}</level>"
 )
 
+logger.add(
+    "app.log",                      # Log file path
+    rotation="1 day",               # Rotate daily
+    retention="1 day",             # Keep logs for 1 week
+    # Clean format for files
+    format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}",
+    compression="zip"               # Compress rotated files
+)
+
 
 def get_random_interval(base, variation):
     return base + random.randint(-variation, variation)
