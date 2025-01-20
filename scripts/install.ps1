@@ -45,4 +45,6 @@ pip install -r requirements.txt
 Write-Host "`nInstallation complete! Please ensure you have:"
 Write-Host "1. Enabled Android Debug Bridge in your emulator (Bluestacks recommended)"
 Write-Host "2. Set Stronghold Kingdoms User Interface Size to minimum"
+Write-Host "`nIf you find this bot helpful, please consider starring the repository at:"
+Write-Host "https://github.com/brunocordioli072/stronghold-kingdoms-bot"
 Write-Host "`nTo run the bot, use 'make run' in the project directory with Stronghold Kingdoms open in your emulator."
