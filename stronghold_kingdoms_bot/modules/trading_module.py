@@ -179,8 +179,8 @@ class TradingModule:
             "FIND_BEST_SELL_PRICE": {'x': 1073, 'y': 662},
             "SELL_BUTTON": {'x': 1323, 'y': 662},
             "FILTERS_BUTTON": {'x': 1567, 'y': 768},
-            "TRADERS_FILTERS_BUTTON": {'x': 189, 'y': 166},
-            "FORAGING_FILTERS_BUTTON": {'x': 141, 'y': 211},
+            "TRADERS_FILTERS_BUTTON": {'x': 183, 'y': 222},
+            "FORAGING_FILTERS_BUTTON": {'x': 207, 'y': 265}
         }
 
     def sell_product(self, coords):

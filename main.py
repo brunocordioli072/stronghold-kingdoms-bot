@@ -22,7 +22,6 @@ logger.add(
     retention="1 day",
     # Clean format for files
     format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}",
-    compression="zip"
 )
 
 
