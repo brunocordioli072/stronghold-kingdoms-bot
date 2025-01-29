@@ -31,6 +31,8 @@ https://github.com/user-attachments/assets/050b1e90-13ca-444d-ad3f-9719eb53f6c5
 
 *Auto Trade.*
 
+*In the current implementation, the Stronghold Kingdoms Bot first executes the scouting flow and then proceeds to the trade flow, repeating this sequence in a continuous loop.*
+
 </div>
 
 ## Requirements
