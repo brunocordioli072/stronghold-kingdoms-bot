@@ -20,11 +20,25 @@ This software is an external tool designed to automate playing Stronghold Kingdo
 
 This software is open source, free of charge, and for learning and exchange purposes only. The developer team has the final right to interpret this project. All problems arising from the use of this software are not related to this project and the developer team. If you encounter a merchant using this software to practice on your behalf and charging for it, it may be the cost of equipment and time, etc. The problems and consequences arising from this software have nothing to do with it.
 
+## Working
+<div align="center">
+
+https://github.com/user-attachments/assets/9b8d11ed-001b-44f5-8a63-87772ddc88c6
+
+*Auto Scouting.*
+
+https://github.com/user-attachments/assets/050b1e90-13ca-444d-ad3f-9719eb53f6c5
+
+*Auto Trade.*
+
+</div>
+
 ## Requirements
 - [Android Debug Bridge](https://community.chocolatey.org/packages/adb)
 - [Tesseract Open Source OCR Engine](https://community.chocolatey.org/packages/tesseract)
 - [Python](https://community.chocolatey.org/packages/python#)
 - [GNU Make](https://community.chocolatey.org/packages/make)
+
 
 # Getting Started
 
