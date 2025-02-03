@@ -64,7 +64,7 @@ Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/bruno
     - GNU Make is a tool that automates the process of building and managing software projects.
 6. Enable Android Debug Bridge on your emulator. **(Bluestacks is recommended.)**
     - Bluestacks: Settings > Advanced > Enable Android Debug Bridge.
-7. Go to Stronghold Kingdoms app > Menu > Settings > Set User Interface Size > Set to minimum
+7. Go to Stronghold Kingdoms app and in the game go to > Menu > Settings > Set User Interface Size > Set to minimum
 8. Clone the repo by running `git clone https://github.com/brunocordioli072/stronghold-kingdoms-bot`.
 9. Install the repo dependencies by running `pip install -r ./requirements.txt`
 11. To use the bot, run `make run` on the root folder of the `stronghold-kingdoms-bot` with the Stronghold Kingdoms app open on Emulator.
