@@ -67,7 +67,6 @@ Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/bruno
 7. Go to Stronghold Kingdoms app > Menu > Settings > Set User Interface Size > Set to minimum
 8. Clone the repo by running `git clone https://github.com/brunocordioli072/stronghold-kingdoms-bot`.
 9. Install the repo dependencies by running `pip install -r ./requirements.txt`
-10. On Stronghold Kingdoms app go to Menu > Settings > User Interface Size > Set to the minimum possible.
 11. To use the bot, run `make run` on the root folder of the `stronghold-kingdoms-bot` with the Stronghold Kingdoms app open on Emulator.
 
 ## Configuration
