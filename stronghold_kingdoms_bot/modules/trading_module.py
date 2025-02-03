@@ -179,8 +179,6 @@ class TradingModule:
             "FIND_BEST_SELL_PRICE": {'x': 1073, 'y': 662},
             "SELL_BUTTON": {'x': 1323, 'y': 662},
             "FILTERS_BUTTON": {'x': 1567, 'y': 768},
-            "TRADERS_FILTERS_BUTTON": {'x': 183, 'y': 222},
-            "FORAGING_FILTERS_BUTTON": {'x': 207, 'y': 265}
         }
 
     def sell_product(self, coords):
@@ -193,9 +191,16 @@ class TradingModule:
 
     def process_category(self, category_name):
         """Processes all items in a category, selling those above price limit"""
+
+        if all(not self.sell_config[category_name][item["name"]] for item in self.categories[category_name]):
+            logger.info(
+                f"Skipping {category_name} - all items configured to not sell")
+            return True
+
         self.device_service.click_coordinates_and_sleep(
             self.buttons[f"{category_name.upper()}_CATEGORY"])
         for item in self.categories[category_name]:
+
             if not self.sell_config[category_name][item["name"]]:
                 logger.info(f'Configured to not sell {item["name"]}')
                 continue
@@ -246,8 +251,7 @@ class TradingModule:
         try:
             self.device_service.click_coordinates_and_sleep(
                 self.buttons["FILTERS_BUTTON"])
-            self.device_service.click_coordinates_and_sleep(
-                self.buttons["TRADERS_FILTERS_BUTTON"])
+            self.device_service.click_filter_button("Traders")
 
             for i in range(self.number_of_villages):
                 if i != 0:

@@ -259,3 +259,20 @@ class DeviceService:
         text = pytesseract.image_to_string(denoised, config=custom_config)
 
         return text.strip()
+
+    def click_filter_button(self, text):
+        """Clicks on a filter button by number"""
+        for i in range(1, 8):
+            text_got = self.get_text_from_coords(
+                self.template_service.filter_buttons[i]['top_left'], self.template_service.filter_buttons[i]['right_bottom'])
+            logger.info(f"Button {i}, found text: {text_got}")
+            if text_got == text:
+                logger.info(f"Found button {text}")
+                button = self.template_service.filter_buttons[i]
+                top_left = button['top_left']
+                right_bottom = button['right_bottom']
+                x = top_left['x'] + (right_bottom['x'] - top_left['x']) // 2
+                y = top_left['y'] + (right_bottom['y'] - top_left['y']) // 2
+                self.click_coordinates_and_sleep({'x': x, 'y': y}, sleep=1)
+                return True
+        return False

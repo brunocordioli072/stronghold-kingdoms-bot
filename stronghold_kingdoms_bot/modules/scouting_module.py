@@ -30,8 +30,6 @@ class ScoutingModule:
             'HOME_BUTTON': {'x': 1573, 'y': 809},
             'MIDDLE_OF_SCREEN': {'x': 794, 'y': 439},
             "FILTERS_BUTTON": {'x': 1567, 'y': 768},
-            "TRADERS_FILTERS_BUTTON": {'x': 183, 'y': 222},
-            "FORAGING_FILTERS_BUTTON": {'x': 207, 'y': 265},
             "VILLAGES_IN_YOUR_FACTION": {'x': 154, 'y': 167},
         }
 
@@ -73,8 +71,7 @@ class ScoutingModule:
         try:
             self.device_service.click_coordinates_and_sleep(
                 self.GAME_COORDS["FILTERS_BUTTON"])
-            self.device_service.click_coordinates_and_sleep(
-                self.GAME_COORDS["FORAGING_FILTERS_BUTTON"])
+            self.device_service.click_filter_button("ForagingScouts")
             templates = self.template_service.get_template_bags_names()
             if not templates:
                 logger.info(

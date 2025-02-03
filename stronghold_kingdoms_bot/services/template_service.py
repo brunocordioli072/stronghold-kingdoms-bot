@@ -46,6 +46,16 @@ class TemplateService:
         ]
         self.add_templates("bags", bag_templates)
 
+        self.filter_buttons = {
+            1: {'top_left': {'x': 46, 'y': 58}, 'right_bottom': {'x': 299, 'y': 86}},
+            2: {'top_left': {'x': 46, 'y': 108}, 'right_bottom': {'x': 299, 'y': 133}},
+            3: {'top_left': {'x': 46, 'y': 154}, 'right_bottom': {'x': 299, 'y': 180}},
+            4: {'top_left': {'x': 46, 'y': 203}, 'right_bottom': {'x': 299, 'y': 226}},
+            5: {'top_left': {'x': 46, 'y': 249}, 'right_bottom': {'x': 299, 'y': 276}},
+            6: {'top_left': {'x': 46, 'y': 295}, 'right_bottom': {'x': 299, 'y': 327}},
+            7: {'top_left': {'x': 46, 'y': 344}, 'right_bottom': {'x': 299, 'y': 373}},
+        }
+
     def add_templates(self, folder, templates, threshold=0.7):
         """
         Adds templates to the template cache.
